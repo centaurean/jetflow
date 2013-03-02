@@ -1,4 +1,4 @@
 jetflow
 =======
 
-jetFlow CFD
+jetFlow CFD 2D
