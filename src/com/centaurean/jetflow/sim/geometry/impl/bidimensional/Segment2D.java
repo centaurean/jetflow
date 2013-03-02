@@ -1,4 +1,4 @@
-package com.centaurean.jetflow.sim.geometry.implementation.bidimensional;
+package com.centaurean.jetflow.sim.geometry.impl.bidimensional;
 
 import com.centaurean.jetflow.sim.geometry.Segment;
 
@@ -15,7 +15,7 @@ public class Segment2D implements Segment<Point2D> {
     public Segment2D(Point2D a, Point2D b) {
         this.a = a;
         this.b = b;
-        this.midPoint = new Point2D(0.5f * (a().coordinates().x() + b().coordinates().x()), 0.5f * (a().coordinates().y() + b().coordinates().y()));
+        this.midPoint = new Point2D(0.5 * (a().coordinates().x() + b().coordinates().x()), 0.5 * (a().coordinates().y() + b().coordinates().y()));
     }
 
     @Override

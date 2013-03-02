@@ -1,8 +1,6 @@
-package com.centaurean.jetflow.sim.geometry.implementation.bidimensional;
+package com.centaurean.jetflow.sim.geometry.impl.bidimensional;
 
 import com.centaurean.jetflow.sim.geometry.Point;
-
-import static java.lang.Math.sqrt;
 
 /**
  * jetFlow
@@ -24,13 +22,6 @@ public class Point2D implements Point<Coordinates2D, Point2D, Vector2D> {
     @Override
     public Point2D translation(Vector2D vector2D) {
         return new Point2D(coordinates().x() + vector2D.x(), coordinates().y() + vector2D.y());
-    }
-
-    @Override
-    public double distance(Point2D p) {
-        double delta_x = coordinates().x() - p.coordinates().x();
-        double delta_y = coordinates().y() - p.coordinates().y();
-        return sqrt(delta_x * delta_x + delta_y * delta_y);
     }
 
     @Override

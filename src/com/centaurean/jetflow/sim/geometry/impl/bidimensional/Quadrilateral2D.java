@@ -1,4 +1,4 @@
-package com.centaurean.jetflow.sim.geometry.implementation.bidimensional;
+package com.centaurean.jetflow.sim.geometry.impl.bidimensional;
 
 import com.centaurean.jetflow.sim.geometry.Quadrilateral;
 

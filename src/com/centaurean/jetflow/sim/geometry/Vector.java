@@ -5,7 +5,9 @@ package com.centaurean.jetflow.sim.geometry;
  * guillaume
  * 01/03/13 14:47
  */
-public interface Vector<V> {
+public interface Vector<C, V> {
+    public C coordinates();
+
     public V add(V v);
 
     public V multiply(double c);
