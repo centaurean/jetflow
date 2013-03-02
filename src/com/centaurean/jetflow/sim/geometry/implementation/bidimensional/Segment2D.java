@@ -15,35 +15,38 @@ public class Segment2D implements Segment<Point2D> {
     public Segment2D(Point2D a, Point2D b) {
         this.a = a;
         this.b = b;
-        this.midPoint = new Point2D(0.5f * (a().x() + b().x()), 0.5f * (a().y() + b().y()));
+        this.midPoint = new Point2D(0.5f * (a().coordinates().x() + b().coordinates().x()), 0.5f * (a().coordinates().y() + b().coordinates().y()));
     }
 
+    @Override
     public Point2D a() {
         return a;
     }
 
+    @Override
     public Point2D b() {
         return b;
     }
 
+    @Override
     public Point2D midPoint() {
         return midPoint;
     }
 
-    // Renvoie un flottant dont le signe détermine la position du point c par rapport au segment2D
+    @Override
     public double position(Point2D c) {
-        return (b().x() - a().x()) * (c.y() - a().y()) - (b().y() - a().y()) * (c.x() - a().x());
+        return (b().coordinates().x() - a().coordinates().x()) * (c.coordinates().y() - a().coordinates().y()) - (b().coordinates().y() - a().coordinates().y()) * (c.coordinates().x() - a().coordinates().x());
     }
 
     @Override
-    public boolean equals(Object objet) {
-        if (objet == null)
+    public boolean equals(Object object) {
+        if (object == null)
             return false;
-        if (objet == this)
+        if (object == this)
             return true;
-        if (!(objet instanceof Segment2D))
+        if (!(object instanceof Segment2D))
             return false;
-        Segment2D segment2D = (Segment2D) objet;
+        Segment2D segment2D = (Segment2D) object;
         return this.a().equals(segment2D.a()) && this.b().equals(segment2D.b()) || this.a().equals(segment2D.b()) && this.b().equals(segment2D.a());
     }
 

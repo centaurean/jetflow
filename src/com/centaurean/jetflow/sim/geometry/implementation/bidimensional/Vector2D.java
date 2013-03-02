@@ -19,11 +19,11 @@ public class Vector2D implements Vector<Vector2D> {
     }
 
     public Vector2D(Point2D a, Point2D b) {
-        this(b.x() - a.x(), b.y() - a.y());
+        this(b.coordinates().x() - a.coordinates().x(), b.coordinates().y() - a.coordinates().y());
     }
 
     public Vector2D(Segment2D segment2D) {
-        this(segment2D.b().x() - segment2D.a().x(), segment2D.b().y() - segment2D.a().y());
+        this(segment2D.b().coordinates().x() - segment2D.a().coordinates().x(), segment2D.b().coordinates().y() - segment2D.a().coordinates().y());
     }
 
     public double x() {
@@ -39,8 +39,8 @@ public class Vector2D implements Vector<Vector2D> {
     }
 
     @Override
-    public Vector2D add(Vector2D objet) {
-        return new Vector2D(x() + objet.x(), y() + objet.y());
+    public Vector2D add(Vector2D object) {
+        return new Vector2D(x() + object.x(), y() + object.y());
     }
 
     @Override

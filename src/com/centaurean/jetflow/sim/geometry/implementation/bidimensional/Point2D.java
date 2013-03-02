@@ -9,42 +9,39 @@ import static java.lang.Math.sqrt;
  * guillaume
  * 01/03/13 14:45
  */
-public class Point2D implements Point<Point2D, Vector2D> {
-    private double x;
-    private double y;
+public class Point2D implements Point<Coordinates2D, Point2D, Vector2D> {
+    private Coordinates2D coordinates;
 
     public Point2D(double x, double y) {
-        this.x = x;
-        this.y = y;
+        coordinates = new Coordinates2D(x, y);
     }
 
-    public double x() {
-        return x;
+    @Override
+    public Coordinates2D coordinates() {
+        return coordinates;
     }
 
-    public double y() {
-        return y;
-    }
-
+    @Override
     public Point2D translation(Vector2D vector2D) {
-        return new Point2D(x() + vector2D.x(), y() + vector2D.y());
+        return new Point2D(coordinates().x() + vector2D.x(), coordinates().y() + vector2D.y());
     }
 
+    @Override
     public double distance(Point2D p) {
-        double delta_x = x() - p.x();
-        double delta_y = y() - p.y();
+        double delta_x = coordinates().x() - p.coordinates().x();
+        double delta_y = coordinates().y() - p.coordinates().y();
         return sqrt(delta_x * delta_x + delta_y * delta_y);
     }
 
     @Override
-    public boolean equals(Object objet) {
-        if (objet == null)
+    public boolean equals(Object object) {
+        if (object == null)
             return false;
-        if (objet == this)
+        if (object == this)
             return true;
-        if (!(objet instanceof Point2D))
+        if (!(object instanceof Point2D))
             return false;
-        Point2D point = (Point2D) objet;
-        return (this.x() == point.x() && this.y() == point.y());
+        Point2D point = (Point2D) object;
+        return (this.coordinates().x() == point.coordinates().x() && this.coordinates().y() == point.coordinates().y());
     }
 }

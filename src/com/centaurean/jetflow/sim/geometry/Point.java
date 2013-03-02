@@ -5,7 +5,9 @@ package com.centaurean.jetflow.sim.geometry;
  * guillaume
  * 01/03/13 14:45
  */
-public interface Point<P, V> {
+public interface Point<C, P, V> {
+    public C coordinates();
+
     public P translation(V v);
 
     public double distance(P p);
