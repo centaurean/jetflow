@@ -5,7 +5,7 @@ package com.centaurean.jetflow.sim.geometry;
  * guillaume
  * 02/03/13 16:37
  */
-public interface Coordinates<C> {
+public interface Coordinates<C> extends Operandable<C> {
     public double distance(C c);
 
     @Override

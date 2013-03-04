@@ -34,6 +34,16 @@ public class Coordinates2D implements Coordinates<Coordinates2D> {
     }
 
     @Override
+    public Coordinates2D add(Coordinates2D coordinates2D) {
+        return new Coordinates2D(x() + coordinates2D.x(), y() + coordinates2D.y());
+    }
+
+    @Override
+    public Coordinates2D multiply(double c) {
+        return new Coordinates2D(c * x(), c * y());
+    }
+
+    @Override
     public boolean equals(Object object) {
         if (object == null)
             return false;

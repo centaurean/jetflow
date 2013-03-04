@@ -24,6 +24,14 @@ public class Vector2D implements Vector<Coordinates2D, Vector2D> {
         this(segment2D.b().coordinates().x() - segment2D.a().coordinates().x(), segment2D.b().coordinates().y() - segment2D.a().coordinates().y());
     }
 
+    public Vector2D(Coordinates2D coordinates) {
+        this(coordinates.x(), coordinates.y());
+    }
+
+    public Vector2D(Coordinates2D c1, Coordinates2D c2) {
+        this(c2.x() - c1.x(), c2.y() - c1.y());
+    }
+
     @Override
     public Coordinates2D coordinates() {
         return coordinates;
@@ -45,7 +53,7 @@ public class Vector2D implements Vector<Coordinates2D, Vector2D> {
 
     @Override
     public double dotProduct(Vector2D v) {
-        return coordinates().x() * v.coordinates().y() - coordinates().y() * v.coordinates().x();
+        return coordinates().x() * v.coordinates().x() + coordinates().y() * v.coordinates().y();
     }
 
     @Override
