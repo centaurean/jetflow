@@ -33,7 +33,7 @@ import static java.lang.Math.sqrt;
  * jetFlow
  *
  * 02/03/13 15:47
- * @author guillaume
+ * @author gpnuma
  */
 public class Coordinates2D implements Coordinates<Coordinates2D> {
     private double x;

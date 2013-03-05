@@ -34,7 +34,7 @@ import java.util.Hashtable;
  * jetFlow
  *
  * 04/03/13 20:44
- * @author guillaume
+ * @author gpnuma
  */
 public class Anchors2D extends Hashtable<Integer, Point2D> implements Anchors<Point2D> {
 }

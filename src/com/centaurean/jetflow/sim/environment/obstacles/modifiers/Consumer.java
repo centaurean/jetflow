@@ -31,7 +31,7 @@ import com.centaurean.jetflow.sim.environment.obstacles.Obstacle;
  * jetFlow
  *
  * 03/03/13 20:28
- * @author guillaume
+ * @author gpnuma
  */
 public interface Consumer extends Obstacle {
 }

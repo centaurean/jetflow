@@ -29,7 +29,7 @@ package com.centaurean.jetflow.sim.environment.obstacles;
  * jetFlow
  *
  * 04/03/13 21:08
- * @author guillaume
+ * @author gpnuma
  */
 public class Triplet<E> {
     private E a;

@@ -33,7 +33,7 @@ import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Vector2D;
  * jetFlow
  *
  * 04/03/13 21:27
- * @author guillaume
+ * @author gpnuma
  */
 public class Triangle2D extends Triangle<Anchors2D, Coordinates2D> {
     public Triangle2D(Integer a, Integer b, Integer c) {

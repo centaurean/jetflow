@@ -31,7 +31,7 @@ import java.util.Collection;
  * jetFlow
  *
  * 04/03/13 20:53
- * @author guillaume
+ * @author gpnuma
  */
 public interface Obstacles<A, O, C> extends Collection<O>, Collisionable<A, C> {
 }

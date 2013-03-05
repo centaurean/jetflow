@@ -34,7 +34,7 @@ import java.util.LinkedList;
  * jetFlow
  *
  * 04/03/13 21:26
- * @author guillaume
+ * @author gpnuma
  */
 public class Obstacles2D extends LinkedList<Obstacle2D> implements Obstacles<Anchors2D, Obstacle2D, Coordinates2D> {
     @Override

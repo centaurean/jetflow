@@ -31,7 +31,7 @@ import java.util.Map;
  * jetFlow
  *
  * 04/03/13 20:41
- * @author guillaume
+ * @author gpnuma
  */
 public interface Anchors<P> extends Map<Integer, P> {
 }

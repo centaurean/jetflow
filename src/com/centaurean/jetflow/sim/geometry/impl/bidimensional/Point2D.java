@@ -31,7 +31,7 @@ import com.centaurean.jetflow.sim.geometry.Point;
  * jetFlow
  *
  * 01/03/13 14:45
- * @author guillaume
+ * @author gpnuma
  */
 public class Point2D implements Point<Coordinates2D, Point2D, Vector2D> {
     private Coordinates2D coordinates;
