@@ -47,7 +47,7 @@ public class Point2D implements Point<Coordinates2D, Point2D, Vector2D> {
 
     @Override
     public Point2D translation(Vector2D vector2D) {
-        return new Point2D(coordinates().x() + vector2D.x(), coordinates().y() + vector2D.y());
+        return new Point2D(coordinates().x() + vector2D.coordinates().x(), coordinates().y() + vector2D.coordinates().y());
     }
 
     @Override
