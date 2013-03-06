@@ -1,5 +1,6 @@
 package com.centaurean.jetflow.sim.geometry.impl.bidimensional;
 
+import com.centaurean.jetflow.sim.geometry.Coordinates;
 import com.centaurean.jetflow.sim.geometry.Point;
 import com.centaurean.jetflow.sim.geometry.Quadrilateral;
 import com.centaurean.jetflow.sim.geometry.Segment;
@@ -98,5 +99,10 @@ public class Quadrilateral2D implements Quadrilateral {
     @Override
     public double area() {
         return area;
+    }
+
+    @Override
+    public boolean includes(Coordinates c) {
+        return false;  // todo
     }
 }

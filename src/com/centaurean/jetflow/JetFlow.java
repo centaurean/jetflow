@@ -1,7 +1,10 @@
 package com.centaurean.jetflow;
 
+import com.centaurean.jetflow.sim.environment.impl.bidimensional.obstacles.Obstacle2D;
+import com.centaurean.jetflow.sim.environment.impl.bidimensional.obstacles.ObstaclePart2D;
 import com.centaurean.jetflow.sim.environment.impl.bidimensional.obstacles.Obstacles2D;
 import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Coordinates2D;
+import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Point2D;
 import com.centaurean.jetflow.sim.solver.Solver;
 import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.Particle2D;
 import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.Particles2D;
@@ -76,7 +79,13 @@ public class JetFlow {
         for (double x = 0.0; x < 1000.0; x++)
             particles.add(new Particle2D(new Coordinates2D(x, x)));
 
-        solver.setObstacles(new Obstacles2D());
+        Obstacles2D obstacles = new Obstacles2D();
+        Obstacle2D obstacle = new Obstacle2D();
+        for (int i = 0; i < 10; i++)
+            obstacle.add(new ObstaclePart2D(new Point2D(Math.random() * 800.0, Math.random() * 800.0), new Point2D(Math.random() * 800.0, Math.random() * 800.0), new Point2D(Math.random() * 800.0, Math.random() * 800.0)));
+        obstacles.add(obstacle);
+
+        solver.setObstacles(obstacles);
         solver.setParticles(particles);
         jetFlow.setSolver(solver);
         jetFlow.setSimWindow(SimWindow.getInstance());

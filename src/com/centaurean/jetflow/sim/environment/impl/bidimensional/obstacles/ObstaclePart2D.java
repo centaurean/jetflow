@@ -59,6 +59,6 @@ public class ObstaclePart2D extends Triangle2D implements ObstaclePart {
         path2D.lineTo(b().coordinates().x(), b().coordinates().y());
         path2D.lineTo(c().coordinates().x(), c().coordinates().y());
         path2D.closePath();
-        graphics2D.draw(path2D);
+        graphics2D.fill(path2D);
     }
 }

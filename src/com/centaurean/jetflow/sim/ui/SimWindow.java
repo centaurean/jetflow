@@ -1,6 +1,7 @@
 package com.centaurean.jetflow.sim.ui;
 
 import com.centaurean.jetflow.JetFlow;
+import com.centaurean.jetflow.sim.environment.obstacles.Obstacle;
 import com.centaurean.jetflow.sim.solver.Particle;
 
 import javax.swing.*;
@@ -73,9 +74,11 @@ public class SimWindow extends JFrame {
         graphics2D.setColor(Color.WHITE);
         graphics2D.fillRect(0, 0, 800, 800);
 
-        // todo draw
         for (Particle particle : JetFlow.getInstance().getSolver().getParticles())
             particle.draw(graphics2D);
+
+        for (Obstacle obstacle : JetFlow.getInstance().getSolver().getObstacles())
+            obstacle.draw(graphics2D);
 
         graphics2D.dispose();
         bufferStrategy.show();

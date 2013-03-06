@@ -47,14 +47,9 @@ public class Obstacle2D extends LinkedList<ObstaclePart> implements Obstacle {
         return false;
     }
 
-    /**
-     * Draw a triangle
-     * This method is not thread safe for performance reasons
-     *
-     * @param graphics2D the graphics environment
-     */
     @Override
     public void draw(Graphics2D graphics2D) {
+        graphics2D.setColor(Color.darkGray);
         for (ObstaclePart part : this)
             part.draw(graphics2D);
     }

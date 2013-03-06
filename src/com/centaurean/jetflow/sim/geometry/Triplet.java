@@ -47,10 +47,10 @@ public class Triplet<E> {
     }
 
     public E b() {
-        return a;
+        return b;
     }
 
     public E c() {
-        return a;
+        return c;
     }
 }
