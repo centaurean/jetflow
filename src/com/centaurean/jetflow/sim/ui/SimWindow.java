@@ -75,8 +75,9 @@ public class SimWindow extends JFrame {
 
         // todo draw
         for (Particle particle : JetFlow.getInstance().getSolver().getParticles())
+            particle.draw(graphics2D);
 
-            graphics2D.dispose();
+        graphics2D.dispose();
         bufferStrategy.show();
 
         JetFlow.getInstance().getSolver().step();

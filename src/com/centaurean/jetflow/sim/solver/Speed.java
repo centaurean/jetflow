@@ -1,7 +1,6 @@
 package com.centaurean.jetflow.sim.solver;
 
-import com.centaurean.jetflow.sim.geometry.Coordinates;
-import com.centaurean.jetflow.sim.ui.Drawable;
+import com.centaurean.jetflow.sim.geometry.Vector;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -31,27 +30,8 @@ import com.centaurean.jetflow.sim.ui.Drawable;
  *
  * jetFlow
  *
- * 02/03/13 16:34
+ * 06/03/13 20:48
  * @author gpnuma
  */
-public abstract class Particle implements Drawable {
-    private Mass mass;
-    private Pressure pressure;
-    private Viscosity viscosity;
-
-    public abstract Coordinates coordinates();
-
-    public abstract Speed speed();
-
-    public Mass mass() {
-        return mass;
-    }
-
-    public Pressure pressure() {
-        return pressure;
-    }
-
-    public Viscosity viscosity() {
-        return viscosity;
-    }
+public interface Speed extends Vector {
 }

@@ -1,6 +1,7 @@
 package com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional;
 
 import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Vector2D;
+import com.centaurean.jetflow.sim.solver.Speed;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -33,7 +34,7 @@ import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Vector2D;
  * 03/03/13 20:15
  * @author gpnuma
  */
-public class Speed2D extends Vector2D {
+public class Speed2D extends Vector2D implements Speed {
     public Speed2D(double x, double y) {
         super(x, y);
     }

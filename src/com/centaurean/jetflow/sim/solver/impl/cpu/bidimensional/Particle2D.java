@@ -37,13 +37,14 @@ import java.awt.geom.Ellipse2D;
  * 03/03/13 20:13
  * @author gpnuma
  */
-public class Particle2D extends Particle<Coordinates2D, Speed2D> {
+public class Particle2D extends Particle {
     public static Ellipse2D point = new Ellipse2D.Double();
 
     private Coordinates2D coordinates;
     private Speed2D speed;
 
-    public Particle2D() {
+    public Particle2D(Coordinates2D coordinates2D) {
+        this.coordinates = coordinates2D;
     }
 
     @Override
