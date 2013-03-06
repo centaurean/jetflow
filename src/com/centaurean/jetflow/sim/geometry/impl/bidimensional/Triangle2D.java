@@ -35,7 +35,7 @@ import static java.lang.Math.abs;
  * 01/03/13 14:45
  * @author gpnuma
  */
-public class Triangle2D implements Triangle<Point2D, Segment2D> {
+public class Triangle2D implements Triangle<Point2D, Segment2D, Coordinates2D> {
     private Point2D a;
     private Point2D b;
     private Point2D c;
@@ -45,6 +45,7 @@ public class Triangle2D implements Triangle<Point2D, Segment2D> {
     private Points2D points2D;
     private Segments2D segments2D;
     private Point2D centerOfGravity;
+    private double area;
 
     public Triangle2D(Point2D a, Point2D b, Point2D c) {
         this.a = a;
@@ -62,6 +63,7 @@ public class Triangle2D implements Triangle<Point2D, Segment2D> {
         this.segments2D.add(this.bc);
         this.segments2D.add(this.ca);
         this.centerOfGravity = new Point2D((1.0f / 3.0f) * (a.coordinates().x() + b.coordinates().x() + c.coordinates().x()), (1.0f / 3.0f) * (a.coordinates().y() + b.coordinates().y() + c.coordinates().y()));
+        this.area = 0.5 * abs(a().coordinates().x() * (b.coordinates().y() - c.coordinates().y()) + b.coordinates().x() * (c.coordinates().y() - a.coordinates().y()) + c.coordinates().x() * (a.coordinates().y() - b.coordinates().y()));
     }
 
     @Override
@@ -105,12 +107,31 @@ public class Triangle2D implements Triangle<Point2D, Segment2D> {
     }
 
     @Override
-    public double surface() {
-        return 0.5 * abs(a().coordinates().x() * (b.coordinates().y() - c.coordinates().y()) + b.coordinates().x() * (c.coordinates().y() - a.coordinates().y()) + c.coordinates().x() * (a.coordinates().y() - b.coordinates().y()));
+    public double area() {
+        return area;
     }
 
     @Override
     public Point2D centerOfGravity() {
         return centerOfGravity;
+    }
+
+    /**
+     * Determine if coordinates are included in the triangle
+     *
+     * @param coordinates2D a given set of 2D coordinates
+     * @return true if the triangle contains the given coordinates, false otherwise
+     */
+    @Override
+    public boolean includes(Coordinates2D coordinates2D) {
+        Vector2D v0 = new Vector2D(a().coordinates());
+        Vector2D v1 = new Vector2D(b().coordinates().add(a().coordinates().multiply(-1.0)));
+        Vector2D v2 = new Vector2D(c().coordinates().add(a().coordinates().multiply(-1.0)));
+
+        double multiplier = 1.0 / (v1.coordinates().y() * v2.coordinates().x() - v1.coordinates().x() * v2.coordinates().y());
+        double a = (v0.coordinates().y() * v2.coordinates().x() - v0.coordinates().x() * v2.coordinates().y() + v2.coordinates().y() * coordinates2D.x() - v2.coordinates().x() * coordinates2D.y()) * (-multiplier);
+        double b = (v0.coordinates().y() * v1.coordinates().x() - v0.coordinates().x() * v1.coordinates().y() + v1.coordinates().y() * coordinates2D.x() - v1.coordinates().x() * coordinates2D.y()) * multiplier;
+
+        return (a > 0.0) && (b > 0.0) && (a + b < 1.0);
     }
 }

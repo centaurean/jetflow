@@ -1,6 +1,10 @@
-package com.centaurean.jetflow.sim.environment.obstacles;
+package com.centaurean.jetflow.sim.ui;
 
-import java.util.Collection;
+import com.centaurean.jetflow.JetFlow;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferStrategy;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -30,8 +34,49 @@ import java.util.Collection;
  *
  * jetFlow
  *
- * 04/03/13 20:53
+ * 06/03/13 14:56
  * @author gpnuma
  */
-public interface Obstacles<O, C> extends Collection<O>, Including<C> {
+public class SimWindow extends JFrame {
+    private static SimWindow instance = new SimWindow();
+
+    private JPanel simPanel;
+    private BufferStrategy bufferStrategy;
+
+    public static SimWindow getInstance() {
+        return instance;
+    }
+
+    public SimWindow() {
+        super();
+        setBounds(200, 200, 0, 0);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        Container content = getContentPane();
+        simPanel = new JPanel(true);
+        simPanel.setPreferredSize(new Dimension(960, 960));
+        simPanel.setBackground(Color.white);
+        content.add(simPanel);
+
+        setIgnoreRepaint(true);
+        pack();
+        setResizable(false);
+        setVisible(true);
+
+        createBufferStrategy(2);
+        bufferStrategy = getBufferStrategy();
+    }
+
+    public void update() {
+        Graphics2D graphics2D = (Graphics2D) bufferStrategy.getDrawGraphics();
+        graphics2D.setColor(Color.WHITE);
+        graphics2D.fillRect(0, 0, 960, 960);
+
+        // todo draw
+
+        graphics2D.dispose();
+        bufferStrategy.show();
+
+        JetFlow.getInstance().getSolver().step();
+    }
 }

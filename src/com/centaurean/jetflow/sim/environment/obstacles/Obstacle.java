@@ -33,5 +33,5 @@ import java.util.Collection;
  * 03/03/13 20:27
  * @author gpnuma
  */
-public interface Obstacle<A, C, T> extends Collection<T>, Collisionable<A, C> {
+public interface Obstacle<C, T> extends Collection<T>, Including<C> {
 }

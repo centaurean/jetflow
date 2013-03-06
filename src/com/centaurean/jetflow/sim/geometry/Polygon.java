@@ -38,5 +38,5 @@ public interface Polygon<P, S> {
 
     public Collection<S> segments();
 
-    public double surface();
+    public double area();
 }

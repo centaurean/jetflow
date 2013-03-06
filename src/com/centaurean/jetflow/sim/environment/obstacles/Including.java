@@ -1,7 +1,5 @@
 package com.centaurean.jetflow.sim.environment.obstacles;
 
-import java.util.Collection;
-
 /*
  * Copyright (c) 2013, Centaurean software
  * All rights reserved.
@@ -30,8 +28,9 @@ import java.util.Collection;
  *
  * jetFlow
  *
- * 04/03/13 20:53
+ * 04/03/13 21:23
  * @author gpnuma
  */
-public interface Obstacles<O, C> extends Collection<O>, Including<C> {
+public interface Including<C> {
+    public boolean includes(C c);
 }

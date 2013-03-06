@@ -1,4 +1,4 @@
-package com.centaurean.jetflow.sim.environment.obstacles;
+package com.centaurean.jetflow.sim.solver;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -28,9 +28,13 @@ package com.centaurean.jetflow.sim.environment.obstacles;
  *
  * jetFlow
  *
- * 04/03/13 21:23
+ * 06/03/13 15:12
  * @author gpnuma
  */
-public interface Collisionable<A, C> {
-    public boolean includes(A anchors, C coordinates);
+public interface Solver<O, P> {
+    public O getObstacles();
+
+    public P getParticles();
+
+    public void step();
 }

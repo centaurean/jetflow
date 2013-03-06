@@ -31,7 +31,7 @@ package com.centaurean.jetflow.sim.geometry;
  * 05/03/13 00:22
  * @author gpnuma
  */
-public interface Operandable<T> {
+public interface Algebra<T> {
     public T add(T t);
 
     public T multiply(double c);

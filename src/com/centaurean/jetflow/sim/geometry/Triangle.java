@@ -31,7 +31,7 @@ package com.centaurean.jetflow.sim.geometry;
  * 01/03/13 14:47
  * @author gpnuma
  */
-public interface Triangle<P, S> extends Polygon<P, S> {
+public interface Triangle<P, S, C> extends Polygon<P, S> {
     public P a();
 
     public P b();
@@ -45,4 +45,6 @@ public interface Triangle<P, S> extends Polygon<P, S> {
     public S ca();
 
     public P centerOfGravity();
+
+    public boolean includes(C c);
 }

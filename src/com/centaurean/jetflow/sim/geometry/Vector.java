@@ -31,7 +31,7 @@ package com.centaurean.jetflow.sim.geometry;
  * 01/03/13 14:47
  * @author gpnuma
  */
-public interface Vector<C, V> extends Operandable<V> {
+public interface Vector<C, V> extends Algebra<V> {
     public C coordinates();
 
     public double length();

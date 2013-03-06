@@ -1,6 +1,8 @@
-package com.centaurean.jetflow.sim.environment.obstacles;
+package com.centaurean.jetflow;
 
-import java.util.Collection;
+import com.centaurean.jetflow.sim.solver.Solver;
+import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.Solver2D;
+import com.centaurean.jetflow.sim.ui.SimWindow;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -30,8 +32,46 @@ import java.util.Collection;
  *
  * jetFlow
  *
- * 04/03/13 20:53
+ * 06/03/13 15:45
  * @author gpnuma
  */
-public interface Obstacles<O, C> extends Collection<O>, Including<C> {
+public class JetFlow {
+    private static JetFlow instance = new JetFlow();
+
+    private Solver solver;
+    private SimWindow simWindow;
+
+    public static JetFlow getInstance() {
+        return instance;
+    }
+
+    private JetFlow() {
+    }
+
+    public void setSolver(Solver solver) {
+        this.solver = solver;
+    }
+
+    public void setSimWindow(SimWindow simWindow) {
+        this.simWindow = simWindow;
+    }
+
+    public Solver getSolver() {
+        return solver;
+    }
+
+    public SimWindow getSimWindow() {
+        return simWindow;
+    }
+
+    public static void main(String... args) {
+        JetFlow jetFlow = getInstance();
+        jetFlow.setSolver(Solver2D.getInstance());
+        jetFlow.setSimWindow(SimWindow.getInstance());
+
+        while (true) {
+            jetFlow.getSimWindow().update();
+            jetFlow.getSolver().step();
+        }
+    }
 }

@@ -31,7 +31,7 @@ package com.centaurean.jetflow.sim.environment.obstacles;
  * 04/03/13 21:07
  * @author gpnuma
  */
-public abstract class Triangle<A, C> extends Triplet<Integer> implements Collisionable<A, C> {
+public abstract class Triangle<A, C> extends Triplet<Integer> implements Including<C> {
     public Triangle(Integer a, Integer b, Integer c) {
         super(a, b, c);
     }

@@ -44,6 +44,7 @@ public class Quadrilateral2D implements Quadrilateral<Point2D, Segment2D> {
     private Point2D d;
     private Points2D points2D;
     private Segments2D segments2D;
+    private double area;
 
     public Quadrilateral2D(Point2D a, Point2D b, Point2D c, Point2D d) {
         this.a = a;
@@ -60,6 +61,7 @@ public class Quadrilateral2D implements Quadrilateral<Point2D, Segment2D> {
         this.segments2D.add(new Segment2D(b, c));
         this.segments2D.add(new Segment2D(c, d));
         this.segments2D.add(new Segment2D(d, a));
+        this.area = 0.5f * abs((b.coordinates().x() - d.coordinates().x()) * (a.coordinates().y() - c.coordinates().y()) - (a.coordinates().x() - c.coordinates().x()) * (b.coordinates().y() - d.coordinates().y()));
     }
 
     @Override
@@ -93,7 +95,7 @@ public class Quadrilateral2D implements Quadrilateral<Point2D, Segment2D> {
     }
 
     @Override
-    public double surface() {
-        return 0.5f * abs((b.coordinates().x() - d.coordinates().x()) * (a.coordinates().y() - c.coordinates().y()) - (a.coordinates().x() - c.coordinates().x()) * (b.coordinates().y() - d.coordinates().y()));
+    public double area() {
+        return area;
     }
 }

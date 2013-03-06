@@ -1,6 +1,6 @@
-package com.centaurean.jetflow.sim.environment.obstacles;
+package com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional;
 
-import java.util.Collection;
+import java.util.LinkedList;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -30,8 +30,8 @@ import java.util.Collection;
  *
  * jetFlow
  *
- * 04/03/13 20:53
+ * 06/03/13 15:15
  * @author gpnuma
  */
-public interface Obstacles<O, C> extends Collection<O>, Including<C> {
+public class Particles2D extends LinkedList<Particle2D> {
 }

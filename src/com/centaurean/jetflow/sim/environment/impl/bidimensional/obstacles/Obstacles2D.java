@@ -36,11 +36,11 @@ import java.util.LinkedList;
  * 04/03/13 21:26
  * @author gpnuma
  */
-public class Obstacles2D extends LinkedList<Obstacle2D> implements Obstacles<Anchors2D, Obstacle2D, Coordinates2D> {
+public class Obstacles2D extends LinkedList<Obstacle2D> implements Obstacles<Obstacle2D, Coordinates2D> {
     @Override
-    public boolean includes(Anchors2D anchors2D, Coordinates2D coordinates2D) {
+    public boolean includes(Coordinates2D coordinates2D) {
         for (Obstacle2D obstacle : this)
-            if (obstacle.includes(anchors2D, coordinates2D))
+            if (obstacle.includes(coordinates2D))
                 return true;
         return false;
     }

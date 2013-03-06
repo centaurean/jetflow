@@ -31,7 +31,7 @@ package com.centaurean.jetflow.sim.geometry;
  * 02/03/13 16:37
  * @author gpnuma
  */
-public interface Coordinates<C> extends Operandable<C> {
+public interface Coordinates<C> extends Algebra<C> {
     public double distance(C c);
 
     @Override

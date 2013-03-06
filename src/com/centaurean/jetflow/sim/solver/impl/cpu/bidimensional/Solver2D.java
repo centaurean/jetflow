@@ -1,6 +1,9 @@
-package com.centaurean.jetflow.sim.environment.obstacles;
+package com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional;
 
-import java.util.Collection;
+
+import com.centaurean.jetflow.sim.environment.impl.bidimensional.obstacles.Obstacle2D;
+import com.centaurean.jetflow.sim.environment.impl.bidimensional.obstacles.Obstacles2D;
+import com.centaurean.jetflow.sim.solver.Solver;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -30,8 +33,41 @@ import java.util.Collection;
  *
  * jetFlow
  *
- * 04/03/13 20:53
+ * 06/03/13 15:05
  * @author gpnuma
  */
-public interface Obstacles<O, C> extends Collection<O>, Including<C> {
+public class Solver2D implements Solver<Obstacles2D, Particles2D> {
+    private static Solver2D instance = new Solver2D();
+
+    private Obstacles2D obstacles2D;
+    private Particles2D particles2D;
+
+    public static Solver2D getInstance() {
+        return instance;
+    }
+
+    private Solver2D() {
+    }
+
+    @Override
+    public Obstacles2D getObstacles() {
+        return null;
+    }
+
+    @Override
+    public Particles2D getParticles() {
+        return null;
+    }
+
+    @Override
+    public void step() {
+        for (Particle2D particle2D : particles2D) {
+            // Step 1 : obstacles
+            for (Obstacle2D obstacle2D : obstacles2D)
+                if (obstacle2D.includes(particle2D.coordinates())) ;
+            // todo manage bounce
+
+            // Step 2 : smoothed kernel
+        }
+    }
 }
