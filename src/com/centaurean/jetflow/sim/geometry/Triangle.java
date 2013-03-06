@@ -45,6 +45,4 @@ public interface Triangle extends Polygon {
     public Segment ca();
 
     public Point centerOfGravity();
-
-    public boolean includes(Coordinates c);
 }

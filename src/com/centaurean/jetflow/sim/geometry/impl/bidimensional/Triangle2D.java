@@ -106,9 +106,9 @@ public class Triangle2D extends Triplet<Point2D> implements Triangle {
      */
     @Override
     public boolean includes(Coordinates coordinates) {
-        Vector2D v0 = new Vector2D((Coordinates2D) a().coordinates());
-        Vector2D v1 = new Vector2D((Coordinates2D) b().coordinates().add(a().coordinates().multiply(-1.0)));
-        Vector2D v2 = new Vector2D((Coordinates2D) c().coordinates().add(a().coordinates().multiply(-1.0)));
+        Vector2D v0 = new Vector2D(a().coordinates());
+        Vector2D v1 = new Vector2D(b().coordinates().add(a().coordinates().multiply(-1.0)));
+        Vector2D v2 = new Vector2D(c().coordinates().add(a().coordinates().multiply(-1.0)));
 
         double multiplier = 1.0 / (v1.coordinates().y() * v2.coordinates().x() - v1.coordinates().x() * v2.coordinates().y());
         double a = (v0.coordinates().y() * v2.coordinates().x() - v0.coordinates().x() * v2.coordinates().y() + v2.coordinates().y() * ((Coordinates2D) coordinates).x() - v2.coordinates().x() * ((Coordinates2D) coordinates).y()) * (-multiplier);

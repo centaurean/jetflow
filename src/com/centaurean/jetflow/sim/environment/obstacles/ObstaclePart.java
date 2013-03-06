@@ -1,5 +1,6 @@
 package com.centaurean.jetflow.sim.environment.obstacles;
 
+import com.centaurean.jetflow.sim.geometry.Zone;
 import com.centaurean.jetflow.sim.ui.Drawable;
 
 /*
@@ -33,5 +34,5 @@ import com.centaurean.jetflow.sim.ui.Drawable;
  * 06/03/13 17:48
  * @author gpnuma
  */
-public interface ObstaclePart extends Drawable {
+public interface ObstaclePart extends Zone, Drawable {
 }

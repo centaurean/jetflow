@@ -7,6 +7,7 @@ import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Triangle2D;
 import java.awt.*;
 import java.awt.geom.Path2D;
 
+
 /*
  * Copyright (c) 2013, Centaurean software
  * All rights reserved.
@@ -53,9 +54,10 @@ public class ObstaclePart2D extends Triangle2D implements ObstaclePart {
      */
     @Override
     public void draw(Graphics2D graphics2D) {
-        path2D.moveTo(0.0, 0.0);
-        path2D.lineTo(0.0, 0.0);
-        path2D.lineTo(0.0, 0.0);
+        path2D.reset();
+        path2D.moveTo(a().coordinates().x(), a().coordinates().y());
+        path2D.lineTo(b().coordinates().x(), b().coordinates().y());
+        path2D.lineTo(c().coordinates().x(), c().coordinates().y());
         path2D.closePath();
         graphics2D.draw(path2D);
     }

@@ -1,8 +1,8 @@
 package com.centaurean.jetflow.sim.environment.impl.bidimensional.obstacles;
 
 import com.centaurean.jetflow.sim.environment.obstacles.Obstacle;
+import com.centaurean.jetflow.sim.environment.obstacles.ObstaclePart;
 import com.centaurean.jetflow.sim.geometry.Coordinates;
-import com.centaurean.jetflow.sim.geometry.Triangle;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -38,17 +38,24 @@ import java.util.LinkedList;
  * 04/03/13 21:21
  * @author gpnuma
  */
-public class Obstacle2D extends LinkedList<Triangle> implements Obstacle {
+public class Obstacle2D extends LinkedList<ObstaclePart> implements Obstacle {
     @Override
     public boolean includes(Coordinates coordinates) {
-        for (Triangle triangle : this)
+        for (ObstaclePart triangle : this)
             if (triangle.includes(coordinates))
                 return true;
         return false;
     }
 
+    /**
+     * Draw a triangle
+     * This method is not thread safe for performance reasons
+     *
+     * @param graphics2D the graphics environment
+     */
     @Override
     public void draw(Graphics2D graphics2D) {
-        // todo
+        for (ObstaclePart part : this)
+            part.draw(graphics2D);
     }
 }

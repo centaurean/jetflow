@@ -1,6 +1,5 @@
 package com.centaurean.jetflow.sim.environment.obstacles;
 
-import com.centaurean.jetflow.sim.geometry.Triangle;
 import com.centaurean.jetflow.sim.geometry.Zone;
 import com.centaurean.jetflow.sim.ui.Drawable;
 
@@ -37,5 +36,5 @@ import java.util.Collection;
  * 03/03/13 20:27
  * @author gpnuma
  */
-public interface Obstacle extends Collection<Triangle>, Zone, Drawable {
+public interface Obstacle extends Collection<ObstaclePart>, Zone, Drawable {
 }
