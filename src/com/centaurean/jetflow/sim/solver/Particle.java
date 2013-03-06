@@ -2,6 +2,7 @@ package com.centaurean.jetflow.sim.solver;
 
 import com.centaurean.jetflow.sim.geometry.Coordinates;
 import com.centaurean.jetflow.sim.geometry.Point;
+import com.centaurean.jetflow.sim.geometry.Vector;
 import com.centaurean.jetflow.sim.ui.Drawable;
 
 
@@ -55,5 +56,10 @@ public abstract class Particle implements Drawable, Point {
 
     public Viscosity viscosity() {
         return viscosity;
+    }
+
+    @Override
+    public void translate(Vector vector) {
+        coordinates().translate(vector);
     }
 }

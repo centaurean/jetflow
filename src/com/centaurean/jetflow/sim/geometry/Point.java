@@ -34,8 +34,6 @@ package com.centaurean.jetflow.sim.geometry;
 public interface Point extends GeometricOperations {
     public Coordinates coordinates();
 
-    public void translate(Vector v);
-
     @Override
     public boolean equals(Object o);
 }

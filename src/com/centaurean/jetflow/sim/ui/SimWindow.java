@@ -55,7 +55,7 @@ public class SimWindow extends JFrame {
 
         Container content = getContentPane();
         simPanel = new JPanel(true);
-        simPanel.setPreferredSize(new Dimension(960, 960));
+        simPanel.setPreferredSize(new Dimension(800, 800));
         simPanel.setBackground(Color.white);
         content.add(simPanel);
 
@@ -71,7 +71,7 @@ public class SimWindow extends JFrame {
     public void update() {
         Graphics2D graphics2D = (Graphics2D) bufferStrategy.getDrawGraphics();
         graphics2D.setColor(Color.WHITE);
-        graphics2D.fillRect(0, 0, 960, 960);
+        graphics2D.fillRect(0, 0, 800, 800);
 
         // todo draw
         for (Particle particle : JetFlow.getInstance().getSolver().getParticles())

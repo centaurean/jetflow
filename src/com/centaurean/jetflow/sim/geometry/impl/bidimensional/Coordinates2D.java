@@ -1,6 +1,7 @@
 package com.centaurean.jetflow.sim.geometry.impl.bidimensional;
 
 import com.centaurean.jetflow.sim.geometry.Coordinates;
+import com.centaurean.jetflow.sim.geometry.Vector;
 
 import static java.lang.Math.sqrt;
 
@@ -87,5 +88,11 @@ public class Coordinates2D implements Coordinates {
             return false;
         Coordinates2D coordinates = (Coordinates2D) object;
         return (this.x() == coordinates.x() && this.y() == coordinates.y());
+    }
+
+    @Override
+    public void translate(Vector vector) {
+        x += ((Coordinates2D) vector.coordinates()).x();
+        y += ((Coordinates2D) vector.coordinates()).y();
     }
 }
