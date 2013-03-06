@@ -1,4 +1,4 @@
-package com.centaurean.jetflow.sim.environment.obstacles;
+package com.centaurean.jetflow.sim.geometry;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -28,11 +28,29 @@ package com.centaurean.jetflow.sim.environment.obstacles;
  *
  * jetFlow
  *
- * 04/03/13 21:07
+ * 04/03/13 21:08
  * @author gpnuma
  */
-public abstract class Triangle<A, C> extends Triplet<Integer> implements Including<C> {
-    public Triangle(Integer a, Integer b, Integer c) {
-        super(a, b, c);
+public class Triplet<E> {
+    private E a;
+    private E b;
+    private E c;
+
+    public Triplet(E a, E b, E c) {
+        this.a = a;
+        this.b = b;
+        this.c = c;
+    }
+
+    public E a() {
+        return a;
+    }
+
+    public E b() {
+        return a;
+    }
+
+    public E c() {
+        return a;
     }
 }
