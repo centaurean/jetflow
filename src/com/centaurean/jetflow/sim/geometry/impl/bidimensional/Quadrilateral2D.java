@@ -62,7 +62,7 @@ public class Quadrilateral2D implements Quadrilateral {
         this.segments2D.add(new Segment2D(b, c));
         this.segments2D.add(new Segment2D(c, d));
         this.segments2D.add(new Segment2D(d, a));
-        //this.area = 0.5f * abs((((Coordinates2D) b.coordinates()).x() - ((Coordinates2D) d.coordinates()).x()) * (((Coordinates2D) a.coordinates()).y() - ((Coordinates2D) c.coordinates()).y()) - (((Coordinates2D).coordinates()).x() - ((Coordinates2D) c.coordinates()).x()) * (((Coordinates2D) b.coordinates()).y() - ((Coordinates2D) d.coordinates()).y()));
+        this.area = 0.5f * Math.abs((((Coordinates2D) b.coordinates()).x() - ((Coordinates2D) d.coordinates()).x()) * (((Coordinates2D) a.coordinates()).y() - ((Coordinates2D) c.coordinates()).y()) - (((Coordinates2D) a.coordinates()).x() - ((Coordinates2D) c.coordinates()).x()) * (((Coordinates2D) b.coordinates()).y() - ((Coordinates2D) d.coordinates()).y()));
     }
 
     @Override
