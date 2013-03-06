@@ -1,4 +1,6 @@
-package com.centaurean.jetflow.sim.geometry;
+package com.centaurean.jetflow.sim.geometry.operations;
+
+import com.centaurean.jetflow.sim.geometry.Vector;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -31,6 +33,6 @@ package com.centaurean.jetflow.sim.geometry;
  * 06/03/13 21:20
  * @author gpnuma
  */
-public interface GeometricOperations {
+public interface Geometric {
     public void translate(Vector vector);
 }

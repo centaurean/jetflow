@@ -1,5 +1,8 @@
 package com.centaurean.jetflow.sim.geometry;
 
+import com.centaurean.jetflow.sim.geometry.operations.Algebraic;
+import com.centaurean.jetflow.sim.geometry.operations.Geometric;
+
 /*
  * Copyright (c) 2013, Centaurean software
  * All rights reserved.
@@ -31,7 +34,7 @@ package com.centaurean.jetflow.sim.geometry;
  * 02/03/13 16:37
  * @author gpnuma
  */
-public interface Coordinates extends Algebra<Coordinates>, GeometricOperations {
+public interface Coordinates extends Algebraic<Coordinates>, Geometric {
     public double distance(Coordinates c);
 
     @Override

@@ -1,4 +1,4 @@
-package com.centaurean.jetflow.sim.geometry;
+package com.centaurean.jetflow.sim.geometry.operations;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -31,7 +31,7 @@ package com.centaurean.jetflow.sim.geometry;
  * 05/03/13 00:22
  * @author gpnuma
  */
-public interface Algebra<T> {
+public interface Algebraic<T> {
     public T add(T t);
 
     public T multiply(double c);

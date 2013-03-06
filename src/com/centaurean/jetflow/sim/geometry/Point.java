@@ -1,5 +1,7 @@
 package com.centaurean.jetflow.sim.geometry;
 
+import com.centaurean.jetflow.sim.geometry.operations.Geometric;
+
 /*
  * Copyright (c) 2013, Centaurean software
  * All rights reserved.
@@ -31,7 +33,7 @@ package com.centaurean.jetflow.sim.geometry;
  * 01/03/13 14:45
  * @author gpnuma
  */
-public interface Point extends GeometricOperations {
+public interface Point extends Geometric {
     public Coordinates coordinates();
 
     @Override

@@ -1,5 +1,7 @@
 package com.centaurean.jetflow.sim.geometry;
 
+import com.centaurean.jetflow.sim.geometry.operations.Algebraic;
+
 /*
  * Copyright (c) 2013, Centaurean software
  * All rights reserved.
@@ -31,7 +33,7 @@ package com.centaurean.jetflow.sim.geometry;
  * 01/03/13 14:47
  * @author gpnuma
  */
-public interface Vector extends Algebra<Vector> {
+public interface Vector extends Algebraic<Vector> {
     public Coordinates coordinates();
 
     public double length();
