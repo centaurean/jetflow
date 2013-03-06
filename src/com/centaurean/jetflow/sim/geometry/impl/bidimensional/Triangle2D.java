@@ -59,8 +59,8 @@ public class Triangle2D extends Triplet<Point2D> implements Triangle {
         this.segments2D.add(this.ab);
         this.segments2D.add(this.bc);
         this.segments2D.add(this.ca);
-        this.centerOfGravity = new Point2D((1.0f / 3.0f) * (((Coordinates2D) a.coordinates()).x() + ((Coordinates2D) b.coordinates()).x() + ((Coordinates2D) c.coordinates()).x()), (1.0f / 3.0f) * (((Coordinates2D) a.coordinates()).y() + ((Coordinates2D) b.coordinates()).y() + ((Coordinates2D) c.coordinates()).y()));
-        this.area = 0.5 * abs(((Coordinates2D) a().coordinates()).x() * (((Coordinates2D) b.coordinates()).y() - ((Coordinates2D) c.coordinates()).y()) + ((Coordinates2D) b.coordinates()).x() * (((Coordinates2D) c.coordinates()).y() - ((Coordinates2D) a.coordinates()).y()) + ((Coordinates2D) c.coordinates()).x() * (((Coordinates2D) a.coordinates()).y() - ((Coordinates2D) b.coordinates()).y()));
+        this.centerOfGravity = new Point2D((1.0f / 3.0f) * (a.coordinates().x() + b.coordinates().x() + c.coordinates().x()), (1.0f / 3.0f) * (a.coordinates().y() + b.coordinates().y() + c.coordinates().y()));
+        this.area = 0.5 * abs(a().coordinates().x() * (b.coordinates().y() - c.coordinates().y()) + b.coordinates().x() * (c.coordinates().y() - a.coordinates().y()) + c.coordinates().x() * (a.coordinates().y() - b.coordinates().y()));
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.centaurean.jetflow.sim.geometry.impl.bidimensional;
 
-import com.centaurean.jetflow.sim.geometry.Coordinates;
 import com.centaurean.jetflow.sim.geometry.Point;
 import com.centaurean.jetflow.sim.geometry.Vector;
 
@@ -36,20 +35,21 @@ import com.centaurean.jetflow.sim.geometry.Vector;
  * @author gpnuma
  */
 public class Point2D implements Point {
-    private Coordinates2D coordinates;
+    private Coordinates2D coordinates2D;
 
     public Point2D(double x, double y) {
-        coordinates = new Coordinates2D(x, y);
+        coordinates2D = new Coordinates2D(x, y);
     }
 
     @Override
-    public Coordinates coordinates() {
-        return coordinates;
+    public Coordinates2D coordinates() {
+        return coordinates2D;
     }
 
     @Override
-    public Point translate(Vector vector) {
-        return new Point2D(((Coordinates2D) coordinates()).x() + ((Vector2D) vector).coordinates().x(), ((Coordinates2D) coordinates()).y() + ((Vector2D) vector).coordinates().y());
+    public void translate(Vector vector) {
+        coordinates2D.setX(coordinates().x() + ((Vector2D) vector).coordinates().x());
+        coordinates2D.setY(coordinates().y() + ((Vector2D) vector).coordinates().y());
     }
 
     @Override

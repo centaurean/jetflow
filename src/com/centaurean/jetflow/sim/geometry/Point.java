@@ -31,10 +31,10 @@ package com.centaurean.jetflow.sim.geometry;
  * 01/03/13 14:45
  * @author gpnuma
  */
-public interface Point {
+public interface Point extends GeometricOperations {
     public Coordinates coordinates();
 
-    public Point translate(Vector v);
+    public void translate(Vector v);
 
     @Override
     public boolean equals(Object o);

@@ -65,7 +65,8 @@ public class Particle2D extends Particle {
      */
     @Override
     public void draw(Graphics2D graphics2D) {
-        point.setFrame(coordinates().x(), coordinates().y(), 1.0, 1.0);
+        graphics2D.setColor(Color.blue);
+        point.setFrame(coordinates().x(), coordinates().y(), 5.0, 5.0);
         graphics2D.draw(point);
     }
 }

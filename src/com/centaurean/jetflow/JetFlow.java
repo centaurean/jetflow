@@ -72,9 +72,9 @@ public class JetFlow {
         JetFlow jetFlow = getInstance();
         Solver2D solver = Solver2D.getInstance();
 
-        Particle2D particle = new Particle2D(new Coordinates2D(5.0, 5.0));
         Particles2D particles = new Particles2D();
-        particles.add(particle);
+        for (double x = 0.0; x < 1000.0; x++)
+            particles.add(new Particle2D(new Coordinates2D(x, x)));
 
         solver.setObstacles(new Obstacles2D());
         solver.setParticles(particles);
@@ -84,6 +84,7 @@ public class JetFlow {
         while (true) {
             jetFlow.getSimWindow().update();
             jetFlow.getSolver().step();
+            System.out.println(System.nanoTime());
         }
     }
 }

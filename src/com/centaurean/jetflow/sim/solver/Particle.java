@@ -1,7 +1,9 @@
 package com.centaurean.jetflow.sim.solver;
 
 import com.centaurean.jetflow.sim.geometry.Coordinates;
+import com.centaurean.jetflow.sim.geometry.Point;
 import com.centaurean.jetflow.sim.ui.Drawable;
+
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -34,7 +36,7 @@ import com.centaurean.jetflow.sim.ui.Drawable;
  * 02/03/13 16:34
  * @author gpnuma
  */
-public abstract class Particle implements Drawable {
+public abstract class Particle implements Drawable, Point {
     private Mass mass;
     private Pressure pressure;
     private Viscosity viscosity;
