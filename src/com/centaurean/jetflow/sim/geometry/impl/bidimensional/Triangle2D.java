@@ -1,5 +1,6 @@
 package com.centaurean.jetflow.sim.geometry.impl.bidimensional;
 
+import com.centaurean.jetflow.sim.geometry.Coordinates;
 import com.centaurean.jetflow.sim.geometry.Triangle;
 import com.centaurean.jetflow.sim.geometry.Triplet;
 
@@ -36,7 +37,7 @@ import static java.lang.Math.abs;
  * 01/03/13 14:45
  * @author gpnuma
  */
-public class Triangle2D extends Triplet<Point2D> implements Triangle<Point2D, Segment2D, Coordinates2D> {
+public class Triangle2D extends Triplet<Point2D> implements Triangle {
     private Segment2D ab;
     private Segment2D bc;
     private Segment2D ca;
@@ -58,8 +59,8 @@ public class Triangle2D extends Triplet<Point2D> implements Triangle<Point2D, Se
         this.segments2D.add(this.ab);
         this.segments2D.add(this.bc);
         this.segments2D.add(this.ca);
-        this.centerOfGravity = new Point2D((1.0f / 3.0f) * (a.coordinates().x() + b.coordinates().x() + c.coordinates().x()), (1.0f / 3.0f) * (a.coordinates().y() + b.coordinates().y() + c.coordinates().y()));
-        this.area = 0.5 * abs(a().coordinates().x() * (b.coordinates().y() - c.coordinates().y()) + b.coordinates().x() * (c.coordinates().y() - a.coordinates().y()) + c.coordinates().x() * (a.coordinates().y() - b.coordinates().y()));
+        this.centerOfGravity = new Point2D((1.0f / 3.0f) * (((Coordinates2D) a.coordinates()).x() + ((Coordinates2D) b.coordinates()).x() + ((Coordinates2D) c.coordinates()).x()), (1.0f / 3.0f) * (((Coordinates2D) a.coordinates()).y() + ((Coordinates2D) b.coordinates()).y() + ((Coordinates2D) c.coordinates()).y()));
+        this.area = 0.5 * abs(((Coordinates2D) a().coordinates()).x() * (((Coordinates2D) b.coordinates()).y() - ((Coordinates2D) c.coordinates()).y()) + ((Coordinates2D) b.coordinates()).x() * (((Coordinates2D) c.coordinates()).y() - ((Coordinates2D) a.coordinates()).y()) + ((Coordinates2D) c.coordinates()).x() * (((Coordinates2D) a.coordinates()).y() - ((Coordinates2D) b.coordinates()).y()));
     }
 
     @Override
@@ -100,18 +101,18 @@ public class Triangle2D extends Triplet<Point2D> implements Triangle<Point2D, Se
     /**
      * Determine if coordinates are included in the triangle
      *
-     * @param coordinates2D a given set of 2D coordinates
+     * @param coordinates a given set of 2D coordinates
      * @return true if the triangle contains the given coordinates, false otherwise
      */
     @Override
-    public boolean includes(Coordinates2D coordinates2D) {
-        Vector2D v0 = new Vector2D(a().coordinates());
-        Vector2D v1 = new Vector2D(b().coordinates().add(a().coordinates().multiply(-1.0)));
-        Vector2D v2 = new Vector2D(c().coordinates().add(a().coordinates().multiply(-1.0)));
+    public boolean includes(Coordinates coordinates) {
+        Vector2D v0 = new Vector2D((Coordinates2D) a().coordinates());
+        Vector2D v1 = new Vector2D((Coordinates2D) b().coordinates().add(a().coordinates().multiply(-1.0)));
+        Vector2D v2 = new Vector2D((Coordinates2D) c().coordinates().add(a().coordinates().multiply(-1.0)));
 
         double multiplier = 1.0 / (v1.coordinates().y() * v2.coordinates().x() - v1.coordinates().x() * v2.coordinates().y());
-        double a = (v0.coordinates().y() * v2.coordinates().x() - v0.coordinates().x() * v2.coordinates().y() + v2.coordinates().y() * coordinates2D.x() - v2.coordinates().x() * coordinates2D.y()) * (-multiplier);
-        double b = (v0.coordinates().y() * v1.coordinates().x() - v0.coordinates().x() * v1.coordinates().y() + v1.coordinates().y() * coordinates2D.x() - v1.coordinates().x() * coordinates2D.y()) * multiplier;
+        double a = (v0.coordinates().y() * v2.coordinates().x() - v0.coordinates().x() * v2.coordinates().y() + v2.coordinates().y() * ((Coordinates2D) coordinates).x() - v2.coordinates().x() * ((Coordinates2D) coordinates).y()) * (-multiplier);
+        double b = (v0.coordinates().y() * v1.coordinates().x() - v0.coordinates().x() * v1.coordinates().y() + v1.coordinates().y() * ((Coordinates2D) coordinates).x() - v1.coordinates().x() * ((Coordinates2D) coordinates).y()) * multiplier;
 
         return (a > 0.0) && (b > 0.0) && (a + b < 1.0);
     }

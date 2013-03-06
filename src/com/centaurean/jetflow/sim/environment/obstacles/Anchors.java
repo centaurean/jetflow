@@ -1,5 +1,7 @@
 package com.centaurean.jetflow.sim.environment.obstacles;
 
+import com.centaurean.jetflow.sim.geometry.Point;
+
 import java.util.Map;
 
 /*
@@ -33,5 +35,5 @@ import java.util.Map;
  * 04/03/13 20:41
  * @author gpnuma
  */
-public interface Anchors<P> extends Map<Integer, P> {
+public interface Anchors extends Map<Integer, Point> {
 }

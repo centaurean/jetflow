@@ -1,5 +1,6 @@
 package com.centaurean.jetflow.sim.geometry.impl.bidimensional;
 
+import com.centaurean.jetflow.sim.geometry.Point;
 import com.centaurean.jetflow.sim.geometry.Segment;
 
 /*
@@ -33,7 +34,7 @@ import com.centaurean.jetflow.sim.geometry.Segment;
  * 01/03/13 14:45
  * @author gpnuma
  */
-public class Segment2D implements Segment<Point2D> {
+public class Segment2D implements Segment {
     private Point2D a;
     private Point2D b;
     private Point2D midPoint;
@@ -41,7 +42,7 @@ public class Segment2D implements Segment<Point2D> {
     public Segment2D(Point2D a, Point2D b) {
         this.a = a;
         this.b = b;
-        this.midPoint = new Point2D(0.5 * (a().coordinates().x() + b().coordinates().x()), 0.5 * (a().coordinates().y() + b().coordinates().y()));
+        this.midPoint = new Point2D(0.5 * (((Coordinates2D) a().coordinates()).x() + ((Coordinates2D) b().coordinates()).x()), 0.5 * (((Coordinates2D) a().coordinates()).y() + ((Coordinates2D) b().coordinates()).y()));
     }
 
     @Override
@@ -60,8 +61,8 @@ public class Segment2D implements Segment<Point2D> {
     }
 
     @Override
-    public double position(Point2D c) {
-        return (b().coordinates().x() - a().coordinates().x()) * (c.coordinates().y() - a().coordinates().y()) - (b().coordinates().y() - a().coordinates().y()) * (c.coordinates().x() - a().coordinates().x());
+    public double position(Point c) {
+        return (((Coordinates2D) b().coordinates()).x() - ((Coordinates2D) a().coordinates()).x()) * (((Coordinates2D) c.coordinates()).y() - ((Coordinates2D) a().coordinates()).y()) - (((Coordinates2D) b().coordinates()).y() - ((Coordinates2D) a().coordinates()).y()) * (((Coordinates2D) c.coordinates()).x() - ((Coordinates2D) a().coordinates()).x());
     }
 
     @Override

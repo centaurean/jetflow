@@ -1,4 +1,11 @@
-package com.centaurean.jetflow.sim.geometry;
+package com.centaurean.jetflow.sim.environment.impl.bidimensional.obstacles;
+
+import com.centaurean.jetflow.sim.environment.obstacles.ObstaclePart;
+import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Point2D;
+import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Triangle2D;
+
+import java.awt.*;
+import java.awt.geom.Path2D;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -28,15 +35,28 @@ package com.centaurean.jetflow.sim.geometry;
  *
  * jetFlow
  *
- * 02/03/13 15:54
+ * 06/03/13 17:48
  * @author gpnuma
  */
-public interface Quadrilateral extends Polygon {
-    public Point a();
+public class ObstaclePart2D extends Triangle2D implements ObstaclePart {
+    private static final Path2D path2D = new Path2D.Double();
 
-    public Point b();
+    public ObstaclePart2D(Point2D a, Point2D b, Point2D c) {
+        super(a, b, c);
+    }
 
-    public Point c();
-
-    public Point d();
+    /**
+     * Draw a triangle
+     * This method is not thread safe for performance reasons
+     *
+     * @param graphics2D the graphics environment
+     */
+    @Override
+    public void draw(Graphics2D graphics2D) {
+        path2D.moveTo(0.0, 0.0);
+        path2D.lineTo(0.0, 0.0);
+        path2D.lineTo(0.0, 0.0);
+        path2D.closePath();
+        graphics2D.draw(path2D);
+    }
 }

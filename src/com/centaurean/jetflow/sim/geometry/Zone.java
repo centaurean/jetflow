@@ -28,15 +28,9 @@ package com.centaurean.jetflow.sim.geometry;
  *
  * jetFlow
  *
- * 02/03/13 15:54
+ * 04/03/13 21:23
  * @author gpnuma
  */
-public interface Quadrilateral extends Polygon {
-    public Point a();
-
-    public Point b();
-
-    public Point c();
-
-    public Point d();
+public interface Zone {
+    public boolean includes(Coordinates c);
 }

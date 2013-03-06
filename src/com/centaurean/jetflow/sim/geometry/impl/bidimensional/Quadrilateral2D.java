@@ -1,10 +1,11 @@
 package com.centaurean.jetflow.sim.geometry.impl.bidimensional;
 
+import com.centaurean.jetflow.sim.geometry.Point;
 import com.centaurean.jetflow.sim.geometry.Quadrilateral;
+import com.centaurean.jetflow.sim.geometry.Segment;
 
 import java.util.Collection;
 
-import static java.lang.Math.abs;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -37,7 +38,7 @@ import static java.lang.Math.abs;
  * 01/03/13 14:45
  * @author gpnuma
  */
-public class Quadrilateral2D implements Quadrilateral<Point2D, Segment2D> {
+public class Quadrilateral2D implements Quadrilateral {
     private Point2D a;
     private Point2D b;
     private Point2D c;
@@ -61,7 +62,7 @@ public class Quadrilateral2D implements Quadrilateral<Point2D, Segment2D> {
         this.segments2D.add(new Segment2D(b, c));
         this.segments2D.add(new Segment2D(c, d));
         this.segments2D.add(new Segment2D(d, a));
-        this.area = 0.5f * abs((b.coordinates().x() - d.coordinates().x()) * (a.coordinates().y() - c.coordinates().y()) - (a.coordinates().x() - c.coordinates().x()) * (b.coordinates().y() - d.coordinates().y()));
+        //this.area = 0.5f * abs((((Coordinates2D) b.coordinates()).x() - ((Coordinates2D) d.coordinates()).x()) * (((Coordinates2D) a.coordinates()).y() - ((Coordinates2D) c.coordinates()).y()) - (((Coordinates2D).coordinates()).x() - ((Coordinates2D) c.coordinates()).x()) * (((Coordinates2D) b.coordinates()).y() - ((Coordinates2D) d.coordinates()).y()));
     }
 
     @Override
@@ -85,12 +86,12 @@ public class Quadrilateral2D implements Quadrilateral<Point2D, Segment2D> {
     }
 
     @Override
-    public Points2D points() {
+    public Collection<Point> points() {
         return points2D;
     }
 
     @Override
-    public Collection<Segment2D> segments() {
+    public Collection<Segment> segments() {
         return segments2D;
     }
 

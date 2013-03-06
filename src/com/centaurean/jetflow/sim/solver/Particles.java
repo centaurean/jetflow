@@ -1,4 +1,8 @@
-package com.centaurean.jetflow.sim.geometry;
+package com.centaurean.jetflow.sim.solver;
+
+import com.centaurean.jetflow.sim.ui.Drawable;
+
+import java.util.LinkedList;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -28,15 +32,8 @@ package com.centaurean.jetflow.sim.geometry;
  *
  * jetFlow
  *
- * 02/03/13 15:54
+ * 06/03/13 17:52
  * @author gpnuma
  */
-public interface Quadrilateral extends Polygon {
-    public Point a();
-
-    public Point b();
-
-    public Point c();
-
-    public Point d();
+public abstract class Particles extends LinkedList<Particle> implements Drawable {
 }

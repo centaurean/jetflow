@@ -35,19 +35,11 @@ import static java.lang.Math.sqrt;
  * 01/03/13 14:45
  * @author gpnuma
  */
-public class Vector2D implements Vector<Coordinates2D, Vector2D> {
+public class Vector2D implements Vector {
     private Coordinates2D coordinates;
 
     public Vector2D(double x, double y) {
         coordinates = new Coordinates2D(x, y);
-    }
-
-    public Vector2D(Point2D a, Point2D b) {
-        this(b.coordinates().x() - a.coordinates().x(), b.coordinates().y() - a.coordinates().y());
-    }
-
-    public Vector2D(Segment2D segment2D) {
-        this(segment2D.b().coordinates().x() - segment2D.a().coordinates().x(), segment2D.b().coordinates().y() - segment2D.a().coordinates().y());
     }
 
     public Vector2D(Coordinates2D coordinates) {
@@ -68,8 +60,8 @@ public class Vector2D implements Vector<Coordinates2D, Vector2D> {
     }
 
     @Override
-    public Vector2D add(Vector2D object) {
-        return new Vector2D(coordinates().x() + object.coordinates().x(), coordinates().y() + object.coordinates().y());
+    public Vector2D add(Vector vector) {
+        return new Vector2D(coordinates().x() + ((Coordinates2D) vector.coordinates()).x(), coordinates().y() + ((Coordinates2D) vector.coordinates()).y());
     }
 
     @Override
@@ -78,8 +70,8 @@ public class Vector2D implements Vector<Coordinates2D, Vector2D> {
     }
 
     @Override
-    public double dotProduct(Vector2D v) {
-        return coordinates().x() * v.coordinates().x() + coordinates().y() * v.coordinates().y();
+    public double dotProduct(Vector vector) {
+        return coordinates().x() * ((Coordinates2D) vector.coordinates()).x() + coordinates().y() * ((Coordinates2D) vector.coordinates()).y();
     }
 
     @Override

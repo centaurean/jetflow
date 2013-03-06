@@ -1,6 +1,7 @@
 package com.centaurean.jetflow.sim.ui;
 
 import com.centaurean.jetflow.JetFlow;
+import com.centaurean.jetflow.sim.solver.Particle;
 
 import javax.swing.*;
 import java.awt.*;
@@ -73,8 +74,9 @@ public class SimWindow extends JFrame {
         graphics2D.fillRect(0, 0, 960, 960);
 
         // todo draw
+        for (Particle particle : JetFlow.getInstance().getSolver().getParticles())
 
-        graphics2D.dispose();
+            graphics2D.dispose();
         bufferStrategy.show();
 
         JetFlow.getInstance().getSolver().step();

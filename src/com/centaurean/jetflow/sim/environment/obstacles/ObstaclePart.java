@@ -1,5 +1,7 @@
 package com.centaurean.jetflow.sim.environment.obstacles;
 
+import com.centaurean.jetflow.sim.ui.Drawable;
+
 /*
  * Copyright (c) 2013, Centaurean software
  * All rights reserved.
@@ -28,9 +30,8 @@ package com.centaurean.jetflow.sim.environment.obstacles;
  *
  * jetFlow
  *
- * 04/03/13 21:23
+ * 06/03/13 17:48
  * @author gpnuma
  */
-public interface Including<C> {
-    public boolean includes(C c);
+public interface ObstaclePart extends Drawable {
 }

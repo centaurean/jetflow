@@ -1,4 +1,6 @@
-package com.centaurean.jetflow.sim.geometry;
+package com.centaurean.jetflow.sim.ui;
+
+import java.awt.*;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -28,15 +30,9 @@ package com.centaurean.jetflow.sim.geometry;
  *
  * jetFlow
  *
- * 02/03/13 15:54
+ * 06/03/13 16:58
  * @author gpnuma
  */
-public interface Quadrilateral extends Polygon {
-    public Point a();
-
-    public Point b();
-
-    public Point c();
-
-    public Point d();
+public interface Drawable {
+    public void draw(Graphics2D graphics2D);
 }

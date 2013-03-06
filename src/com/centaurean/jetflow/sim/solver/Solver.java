@@ -1,5 +1,7 @@
 package com.centaurean.jetflow.sim.solver;
 
+import com.centaurean.jetflow.sim.environment.obstacles.Obstacles;
+
 /*
  * Copyright (c) 2013, Centaurean software
  * All rights reserved.
@@ -31,14 +33,14 @@ package com.centaurean.jetflow.sim.solver;
  * 06/03/13 15:12
  * @author gpnuma
  */
-public interface Solver<O, P> {
-    public void setObstacles(O o);
+public interface Solver {
+    public void setObstacles(Obstacles o);
 
-    public void setParticles(P p);
+    public void setParticles(Particles p);
 
-    public O getObstacles();
+    public Obstacles getObstacles();
 
-    public P getParticles();
+    public Particles getParticles();
 
     public void step();
 }

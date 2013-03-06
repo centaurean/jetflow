@@ -35,7 +35,7 @@ import static java.lang.Math.sqrt;
  * 02/03/13 15:47
  * @author gpnuma
  */
-public class Coordinates2D implements Coordinates<Coordinates2D> {
+public class Coordinates2D implements Coordinates {
     private double x;
     private double y;
 
@@ -53,15 +53,15 @@ public class Coordinates2D implements Coordinates<Coordinates2D> {
     }
 
     @Override
-    public double distance(Coordinates2D c) {
-        double delta_x = x() - c.x();
-        double delta_y = y() - c.y();
+    public double distance(Coordinates coordinates) {
+        double delta_x = x() - ((Coordinates2D) coordinates).x();
+        double delta_y = y() - ((Coordinates2D) coordinates).y();
         return sqrt(delta_x * delta_x + delta_y * delta_y);
     }
 
     @Override
-    public Coordinates2D add(Coordinates2D coordinates2D) {
-        return new Coordinates2D(x() + coordinates2D.x(), y() + coordinates2D.y());
+    public Coordinates2D add(Coordinates coordinates) {
+        return new Coordinates2D(x() + ((Coordinates2D) coordinates).x(), y() + ((Coordinates2D) coordinates).y());
     }
 
     @Override

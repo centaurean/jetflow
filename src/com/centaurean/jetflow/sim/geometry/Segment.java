@@ -31,12 +31,12 @@ package com.centaurean.jetflow.sim.geometry;
  * 01/03/13 14:47
  * @author gpnuma
  */
-public interface Segment<P> {
-    public P a();
+public interface Segment {
+    public Point a();
 
-    public P b();
+    public Point b();
 
-    public double position(P p);
+    public double position(Point p);
 
-    public P midPoint();
+    public Point midPoint();
 }

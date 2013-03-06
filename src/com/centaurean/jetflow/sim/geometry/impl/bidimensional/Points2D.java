@@ -1,5 +1,7 @@
 package com.centaurean.jetflow.sim.geometry.impl.bidimensional;
 
+import com.centaurean.jetflow.sim.geometry.Point;
+
 import java.util.LinkedList;
 
 /*
@@ -33,7 +35,7 @@ import java.util.LinkedList;
  * 01/03/13 14:45
  * @author gpnuma
  */
-public class Points2D extends LinkedList<Point2D> {
+public class Points2D extends LinkedList<Point> {
     public Points2D() {
         super();
     }

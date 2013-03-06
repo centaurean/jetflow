@@ -33,10 +33,10 @@ import java.util.Collection;
  * 02/03/13 15:56
  * @author gpnuma
  */
-public interface Polygon<P, S> {
-    public Collection<P> points();
+public interface Polygon {
+    public Collection<Point> points();
 
-    public Collection<S> segments();
+    public Collection<Segment> segments();
 
     public double area();
 }

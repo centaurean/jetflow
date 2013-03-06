@@ -3,6 +3,9 @@ package com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional;
 import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Coordinates2D;
 import com.centaurean.jetflow.sim.solver.Particle;
 
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
+
 /*
  * Copyright (c) 2013, Centaurean software
  * All rights reserved.
@@ -35,6 +38,8 @@ import com.centaurean.jetflow.sim.solver.Particle;
  * @author gpnuma
  */
 public class Particle2D extends Particle<Coordinates2D, Speed2D> {
+    public static Ellipse2D point = new Ellipse2D.Double();
+
     private Coordinates2D coordinates;
     private Speed2D speed;
 
@@ -49,5 +54,17 @@ public class Particle2D extends Particle<Coordinates2D, Speed2D> {
     @Override
     public Speed2D speed() {
         return speed;
+    }
+
+    /**
+     * Draws a point as an ellipse
+     * This method is not thread safe for performance reasons
+     *
+     * @param graphics2D the graphics environment
+     */
+    @Override
+    public void draw(Graphics2D graphics2D) {
+        point.setFrame(coordinates().x(), coordinates().y(), 1.0, 1.0);
+        graphics2D.draw(point);
     }
 }

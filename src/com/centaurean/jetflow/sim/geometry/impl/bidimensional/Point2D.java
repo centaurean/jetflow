@@ -1,6 +1,8 @@
 package com.centaurean.jetflow.sim.geometry.impl.bidimensional;
 
+import com.centaurean.jetflow.sim.geometry.Coordinates;
 import com.centaurean.jetflow.sim.geometry.Point;
+import com.centaurean.jetflow.sim.geometry.Vector;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -33,7 +35,7 @@ import com.centaurean.jetflow.sim.geometry.Point;
  * 01/03/13 14:45
  * @author gpnuma
  */
-public class Point2D implements Point<Coordinates2D, Point2D, Vector2D> {
+public class Point2D implements Point {
     private Coordinates2D coordinates;
 
     public Point2D(double x, double y) {
@@ -41,13 +43,13 @@ public class Point2D implements Point<Coordinates2D, Point2D, Vector2D> {
     }
 
     @Override
-    public Coordinates2D coordinates() {
+    public Coordinates coordinates() {
         return coordinates;
     }
 
     @Override
-    public Point2D translation(Vector2D vector2D) {
-        return new Point2D(coordinates().x() + vector2D.coordinates().x(), coordinates().y() + vector2D.coordinates().y());
+    public Point translate(Vector vector) {
+        return new Point2D(((Coordinates2D) coordinates()).x() + ((Vector2D) vector).coordinates().x(), ((Coordinates2D) coordinates()).y() + ((Vector2D) vector).coordinates().y());
     }
 
     @Override
@@ -59,6 +61,6 @@ public class Point2D implements Point<Coordinates2D, Point2D, Vector2D> {
         if (!(object instanceof Point2D))
             return false;
         Point2D point = (Point2D) object;
-        return (this.coordinates().x() == point.coordinates().x() && this.coordinates().y() == point.coordinates().y());
+        return (this.coordinates().equals(point.coordinates()));
     }
 }

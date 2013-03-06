@@ -31,8 +31,8 @@ package com.centaurean.jetflow.sim.geometry;
  * 02/03/13 16:37
  * @author gpnuma
  */
-public interface Coordinates<C> extends Algebra<C> {
-    public double distance(C c);
+public interface Coordinates extends Algebra<Coordinates> {
+    public double distance(Coordinates c);
 
     @Override
     public boolean equals(Object o);

@@ -1,8 +1,11 @@
 package com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional;
 
 
-import com.centaurean.jetflow.sim.environment.impl.bidimensional.obstacles.Obstacle2D;
 import com.centaurean.jetflow.sim.environment.impl.bidimensional.obstacles.Obstacles2D;
+import com.centaurean.jetflow.sim.environment.obstacles.Obstacle;
+import com.centaurean.jetflow.sim.environment.obstacles.Obstacles;
+import com.centaurean.jetflow.sim.solver.Particle;
+import com.centaurean.jetflow.sim.solver.Particles;
 import com.centaurean.jetflow.sim.solver.Solver;
 
 /*
@@ -36,7 +39,7 @@ import com.centaurean.jetflow.sim.solver.Solver;
  * 06/03/13 15:05
  * @author gpnuma
  */
-public class Solver2D implements Solver<Obstacles2D, Particles2D> {
+public class Solver2D implements Solver {
     private static Solver2D instance = new Solver2D();
 
     private Obstacles2D obstacles2D;
@@ -50,13 +53,13 @@ public class Solver2D implements Solver<Obstacles2D, Particles2D> {
     }
 
     @Override
-    public void setObstacles(Obstacles2D obstacles2D) {
-        this.obstacles2D = obstacles2D;
+    public void setObstacles(Obstacles obstacles2D) {
+        this.obstacles2D = (Obstacles2D) obstacles2D;
     }
 
     @Override
-    public void setParticles(Particles2D particles2D) {
-        this.particles2D = particles2D;
+    public void setParticles(Particles particles2D) {
+        this.particles2D = (Particles2D) particles2D;
     }
 
     @Override
@@ -71,9 +74,9 @@ public class Solver2D implements Solver<Obstacles2D, Particles2D> {
 
     @Override
     public void step() {
-        for (Particle2D particle2D : particles2D) {
+        for (Particle particle2D : particles2D) {
             // Step 1 : obstacles
-            for (Obstacle2D obstacle2D : obstacles2D)
+            for (Obstacle obstacle2D : obstacles2D)
                 if (obstacle2D.includes(particle2D.coordinates())) ;
             // todo manage bounce
 

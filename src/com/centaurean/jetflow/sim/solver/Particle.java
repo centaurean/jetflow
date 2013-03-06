@@ -1,5 +1,8 @@
 package com.centaurean.jetflow.sim.solver;
 
+import com.centaurean.jetflow.sim.geometry.Coordinates;
+import com.centaurean.jetflow.sim.ui.Drawable;
+
 /*
  * Copyright (c) 2013, Centaurean software
  * All rights reserved.
@@ -31,12 +34,12 @@ package com.centaurean.jetflow.sim.solver;
  * 02/03/13 16:34
  * @author gpnuma
  */
-public abstract class Particle<C, S> {
+public abstract class Particle<C, S> implements Drawable {
     private Mass mass;
     private Pressure pressure;
     private Viscosity viscosity;
 
-    public abstract C coordinates();
+    public abstract Coordinates coordinates();
 
     public abstract S speed();
 

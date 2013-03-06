@@ -31,10 +31,10 @@ package com.centaurean.jetflow.sim.geometry;
  * 01/03/13 14:47
  * @author gpnuma
  */
-public interface Vector<C, V> extends Algebra<V> {
-    public C coordinates();
+public interface Vector extends Algebra<Vector> {
+    public Coordinates coordinates();
 
     public double length();
 
-    public double dotProduct(V v);
+    public double dotProduct(Vector v);
 }

@@ -1,6 +1,9 @@
 package com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional;
 
-import java.util.LinkedList;
+import com.centaurean.jetflow.sim.solver.Particle;
+import com.centaurean.jetflow.sim.solver.Particles;
+
+import java.awt.*;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -33,5 +36,10 @@ import java.util.LinkedList;
  * 06/03/13 15:15
  * @author gpnuma
  */
-public class Particles2D extends LinkedList<Particle2D> {
+public class Particles2D extends Particles {
+    @Override
+    public void draw(Graphics2D graphics2D) {
+        for (Particle particle : this)
+            particle.draw(graphics2D);
+    }
 }

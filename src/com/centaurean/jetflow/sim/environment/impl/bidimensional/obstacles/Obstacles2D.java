@@ -1,8 +1,10 @@
 package com.centaurean.jetflow.sim.environment.impl.bidimensional.obstacles;
 
+import com.centaurean.jetflow.sim.environment.obstacles.Obstacle;
 import com.centaurean.jetflow.sim.environment.obstacles.Obstacles;
-import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Coordinates2D;
+import com.centaurean.jetflow.sim.geometry.Coordinates;
 
+import java.awt.*;
 import java.util.LinkedList;
 
 /*
@@ -36,12 +38,18 @@ import java.util.LinkedList;
  * 04/03/13 21:26
  * @author gpnuma
  */
-public class Obstacles2D extends LinkedList<Obstacle2D> implements Obstacles<Obstacle2D, Coordinates2D> {
+public class Obstacles2D extends LinkedList<Obstacle> implements Obstacles {
     @Override
-    public boolean includes(Coordinates2D coordinates2D) {
-        for (Obstacle2D obstacle : this)
-            if (obstacle.includes(coordinates2D))
+    public boolean includes(Coordinates coordinates) {
+        for (Obstacle obstacle : this)
+            if (obstacle.includes(coordinates))
                 return true;
         return false;
+    }
+
+    @Override
+    public void draw(Graphics2D graphics2D) {
+        for (Obstacle obstacle : this)
+            obstacle.draw(graphics2D);
     }
 }

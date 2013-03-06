@@ -31,20 +31,20 @@ package com.centaurean.jetflow.sim.geometry;
  * 01/03/13 14:47
  * @author gpnuma
  */
-public interface Triangle<P, S, C> extends Polygon<P, S> {
-    public P a();
+public interface Triangle extends Polygon {
+    public Point a();
 
-    public P b();
+    public Point b();
 
-    public P c();
+    public Point c();
 
-    public S ab();
+    public Segment ab();
 
-    public S bc();
+    public Segment bc();
 
-    public S ca();
+    public Segment ca();
 
-    public P centerOfGravity();
+    public Point centerOfGravity();
 
-    public boolean includes(C c);
+    public boolean includes(Coordinates c);
 }
