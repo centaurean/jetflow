@@ -50,6 +50,16 @@ public class Solver2D implements Solver<Obstacles2D, Particles2D> {
     }
 
     @Override
+    public void setObstacles(Obstacles2D obstacles2D) {
+        this.obstacles2D = obstacles2D;
+    }
+
+    @Override
+    public void setParticles(Particles2D particles2D) {
+        this.particles2D = particles2D;
+    }
+
+    @Override
     public Obstacles2D getObstacles() {
         return null;
     }

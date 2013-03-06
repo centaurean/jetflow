@@ -32,6 +32,10 @@ package com.centaurean.jetflow.sim.solver;
  * @author gpnuma
  */
 public interface Solver<O, P> {
+    public void setObstacles(O o);
+
+    public void setParticles(P p);
+
     public O getObstacles();
 
     public P getParticles();

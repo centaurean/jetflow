@@ -1,6 +1,8 @@
 package com.centaurean.jetflow;
 
+import com.centaurean.jetflow.sim.environment.impl.bidimensional.obstacles.Obstacles2D;
 import com.centaurean.jetflow.sim.solver.Solver;
+import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.Particles2D;
 import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.Solver2D;
 import com.centaurean.jetflow.sim.ui.SimWindow;
 
@@ -66,7 +68,10 @@ public class JetFlow {
 
     public static void main(String... args) {
         JetFlow jetFlow = getInstance();
-        jetFlow.setSolver(Solver2D.getInstance());
+        Solver2D solver = Solver2D.getInstance();
+        solver.setObstacles(new Obstacles2D());
+        solver.setParticles(new Particles2D());
+        jetFlow.setSolver(solver);
         jetFlow.setSimWindow(SimWindow.getInstance());
 
         while (true) {
