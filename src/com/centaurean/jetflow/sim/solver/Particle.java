@@ -2,7 +2,6 @@ package com.centaurean.jetflow.sim.solver;
 
 import com.centaurean.jetflow.sim.geometry.Coordinates;
 import com.centaurean.jetflow.sim.geometry.Point;
-import com.centaurean.jetflow.sim.geometry.Vector;
 import com.centaurean.jetflow.sim.ui.PixelDrawable;
 
 
@@ -37,29 +36,14 @@ import com.centaurean.jetflow.sim.ui.PixelDrawable;
  * 02/03/13 16:34
  * @author gpnuma
  */
-public abstract class Particle implements PixelDrawable, Point {
-    private Mass mass;
-    private Pressure pressure;
-    private Viscosity viscosity;
+public interface Particle extends PixelDrawable, Point {
+    public Coordinates coordinates();
 
-    public abstract Coordinates coordinates();
+    public Speed speed();
 
-    public abstract Speed speed();
+    public Mass mass();
 
-    public Mass mass() {
-        return mass;
-    }
+    public Pressure pressure();
 
-    public Pressure pressure() {
-        return pressure;
-    }
-
-    public Viscosity viscosity() {
-        return viscosity;
-    }
-
-    @Override
-    public void translate(Vector vector) {
-        coordinates().translate(vector);
-    }
+    public Viscosity viscosity();
 }

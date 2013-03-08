@@ -1,7 +1,11 @@
 package com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional;
 
+import com.centaurean.jetflow.sim.geometry.Vector;
 import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Coordinates2D;
+import com.centaurean.jetflow.sim.solver.Mass;
 import com.centaurean.jetflow.sim.solver.Particle;
+import com.centaurean.jetflow.sim.solver.Pressure;
+import com.centaurean.jetflow.sim.solver.Viscosity;
 
 import java.awt.image.WritableRaster;
 
@@ -38,11 +42,14 @@ import static java.lang.Math.floor;
  * 03/03/13 20:13
  * @author gpnuma
  */
-public class Particle2D extends Particle {
+public class Particle2D implements Particle {
     private static final int[] particleColor = {0, 0, 255};
 
     private Coordinates2D coordinates;
     private Speed2D speed;
+    private Mass mass;
+    private Pressure pressure;
+    private Viscosity viscosity;
 
     public Particle2D(Coordinates2D coordinates2D) {
         this.coordinates = coordinates2D;
@@ -56,6 +63,23 @@ public class Particle2D extends Particle {
     @Override
     public Speed2D speed() {
         return speed;
+    }
+
+    public Mass mass() {
+        return mass;
+    }
+
+    public Pressure pressure() {
+        return pressure;
+    }
+
+    public Viscosity viscosity() {
+        return viscosity;
+    }
+
+    @Override
+    public void translate(Vector vector) {
+        coordinates().translate(vector);
     }
 
     /**
