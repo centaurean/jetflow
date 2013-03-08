@@ -3,7 +3,8 @@ package com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional;
 import com.centaurean.jetflow.sim.solver.Particle;
 import com.centaurean.jetflow.sim.solver.Particles;
 
-import java.awt.*;
+import java.awt.image.WritableRaster;
+import java.util.LinkedList;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -36,10 +37,10 @@ import java.awt.*;
  * 06/03/13 15:15
  * @author gpnuma
  */
-public class Particles2D extends Particles {
+public class Particles2D extends LinkedList<Particle> implements Particles {
     @Override
-    public void draw(Graphics2D graphics2D) {
+    public void draw(WritableRaster writableRaster) {
         for (Particle particle : this)
-            particle.draw(graphics2D);
+            particle.draw(writableRaster);
     }
 }

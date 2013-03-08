@@ -3,8 +3,9 @@ package com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional;
 import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Coordinates2D;
 import com.centaurean.jetflow.sim.solver.Particle;
 
-import java.awt.*;
-import java.awt.geom.Ellipse2D;
+import java.awt.image.WritableRaster;
+
+import static java.lang.Math.floor;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -38,7 +39,7 @@ import java.awt.geom.Ellipse2D;
  * @author gpnuma
  */
 public class Particle2D extends Particle {
-    public static Ellipse2D point = new Ellipse2D.Double();
+    private static final int[] particleColor = {0, 0, 255};
 
     private Coordinates2D coordinates;
     private Speed2D speed;
@@ -58,15 +59,12 @@ public class Particle2D extends Particle {
     }
 
     /**
-     * Draws a point as an ellipse
-     * This method is not thread safe for performance reasons
+     * Draws a particle as a pixel
      *
-     * @param graphics2D the graphics environment
+     * @param writableRaster a raster to draw a pixel to
      */
     @Override
-    public void draw(Graphics2D graphics2D) {
-        graphics2D.setColor(Color.blue);
-        point.setFrame(coordinates().x(), coordinates().y(), 5.0, 5.0);
-        graphics2D.draw(point);
+    public void draw(WritableRaster writableRaster) {
+        writableRaster.setPixel((int) floor(coordinates().x()), (int) floor(coordinates().y()), particleColor);
     }
 }

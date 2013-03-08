@@ -3,7 +3,7 @@ package com.centaurean.jetflow.sim.solver;
 import com.centaurean.jetflow.sim.geometry.Coordinates;
 import com.centaurean.jetflow.sim.geometry.Point;
 import com.centaurean.jetflow.sim.geometry.Vector;
-import com.centaurean.jetflow.sim.ui.Drawable;
+import com.centaurean.jetflow.sim.ui.PixelDrawable;
 
 
 /*
@@ -37,7 +37,7 @@ import com.centaurean.jetflow.sim.ui.Drawable;
  * 02/03/13 16:34
  * @author gpnuma
  */
-public abstract class Particle implements Drawable, Point {
+public abstract class Particle implements PixelDrawable, Point {
     private Mass mass;
     private Pressure pressure;
     private Viscosity viscosity;

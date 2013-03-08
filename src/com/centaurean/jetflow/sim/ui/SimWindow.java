@@ -6,7 +6,8 @@ import com.centaurean.jetflow.sim.solver.Particle;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -39,50 +40,75 @@ import java.awt.image.BufferStrategy;
  * 06/03/13 14:56
  * @author gpnuma
  */
-public class SimWindow extends JFrame {
+public class SimWindow extends javax.swing.JPanel {
+    private static final String FPS = "FPS = ";
+
     private static SimWindow instance = new SimWindow();
 
-    private JPanel simPanel;
-    private BufferStrategy bufferStrategy;
+    private Image imageSource = null;
+    private String fpsText = FPS + "0";
 
     public static SimWindow getInstance() {
         return instance;
     }
 
-    public SimWindow() {
-        super();
-        setBounds(200, 200, 0, 0);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        Container content = getContentPane();
-        simPanel = new JPanel(true);
-        simPanel.setPreferredSize(new Dimension(800, 800));
-        simPanel.setBackground(Color.white);
-        content.add(simPanel);
-
-        setIgnoreRepaint(true);
-        pack();
-        setResizable(false);
-        setVisible(true);
-
-        createBufferStrategy(2);
-        bufferStrategy = getBufferStrategy();
+    private SimWindow() {
+        new Worker().execute();
     }
 
-    public void update() {
-        Graphics2D graphics2D = (Graphics2D) bufferStrategy.getDrawGraphics();
-        graphics2D.setColor(Color.WHITE);
-        graphics2D.fillRect(0, 0, 800, 800);
-
-        for (Particle particle : JetFlow.getInstance().getSolver().getParticles())
-            particle.draw(graphics2D);
-
-        for (Obstacle obstacle : JetFlow.getInstance().getSolver().getObstacles())
-            obstacle.draw(graphics2D);
-
-        graphics2D.dispose();
-        bufferStrategy.show();
-
-        JetFlow.getInstance().getSolver().step();
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (imageSource != null)
+            g.drawImage(imageSource, 0, 0, this);
     }
+
+    private class Worker extends SwingWorker<Void, Image> {
+        protected void process(java.util.List<Image> chunks) {
+            for (Image bufferedImage : chunks) {
+                imageSource = bufferedImage;
+                repaint();
+            }
+        }
+
+        protected Void doInBackground() throws Exception {
+            int frames = 0;
+            long timeStart = System.nanoTime();
+            double fps = 0.0;
+            try {
+                while (true) {
+                    BufferedImage bufferedImage = new BufferedImage(800, 800, BufferedImage.TYPE_INT_RGB);
+                    Graphics2D graphics2D = bufferedImage.createGraphics();
+                    //graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+                    graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+
+                    graphics2D.setColor(Color.white);
+                    graphics2D.fillRect(0, 0, 800, 800);
+
+                    WritableRaster raster = bufferedImage.getRaster();
+                    for (Particle particle : JetFlow.getInstance().getSolver().getParticles())
+                        particle.draw(raster);
+
+                    graphics2D.setColor(Color.darkGray);
+                    for (Obstacle obstacle : JetFlow.getInstance().getSolver().getObstacles())
+                        obstacle.draw(graphics2D);
+
+                    graphics2D.setColor(Color.white);
+                    graphics2D.fillRect(5, 5, 75, 20);
+                    graphics2D.setColor(Color.red);
+                    graphics2D.drawString(fpsText, 10, 20);
+
+                    graphics2D.dispose();
+                    publish(bufferedImage);
+
+                    frames++;
+                    if (frames % 100 == 0)
+                        fpsText = FPS + Math.round((frames * 1000000000.0) / (System.nanoTime() - timeStart));
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                throw exception;
+            }
+        }
+    }
+
 }

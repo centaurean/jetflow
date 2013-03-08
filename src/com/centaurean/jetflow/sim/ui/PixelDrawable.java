@@ -1,8 +1,6 @@
-package com.centaurean.jetflow.sim.solver;
+package com.centaurean.jetflow.sim.ui;
 
-import com.centaurean.jetflow.sim.ui.PixelDrawable;
-
-import java.util.Collection;
+import java.awt.image.WritableRaster;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -32,8 +30,9 @@ import java.util.Collection;
  *
  * jetFlow
  *
- * 06/03/13 17:52
+ * 08/03/13 13:58
  * @author gpnuma
  */
-public interface Particles extends Collection<Particle>, PixelDrawable {
+public interface PixelDrawable {
+    public void draw(WritableRaster writableRaster);
 }

@@ -11,6 +11,9 @@ import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.Particles2D;
 import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.Solver2D;
 import com.centaurean.jetflow.sim.ui.SimWindow;
 
+import javax.swing.*;
+import java.awt.*;
+
 /*
  * Copyright (c) 2013, Centaurean software
  * All rights reserved.
@@ -76,8 +79,8 @@ public class JetFlow {
         Solver2D solver = Solver2D.getInstance();
 
         Particles2D particles = new Particles2D();
-        for (double x = 0.0; x < 1000.0; x++)
-            particles.add(new Particle2D(new Coordinates2D(x, x)));
+        for (int i = 0; i < 100000; i++)
+            particles.add(new Particle2D(new Coordinates2D(Math.random() * 800.0, Math.random() * 800.0)));
 
         Obstacles2D obstacles = new Obstacles2D();
         Obstacle2D obstacle = new Obstacle2D();
@@ -90,10 +93,18 @@ public class JetFlow {
         jetFlow.setSolver(solver);
         jetFlow.setSimWindow(SimWindow.getInstance());
 
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JFrame simWindowFrame = new JFrame();
+                simWindowFrame.getContentPane().add(SimWindow.getInstance(), BorderLayout.CENTER);
+                simWindowFrame.setSize(800, 800);
+                simWindowFrame.setVisible(true);
+            }
+        });
+
         while (true) {
-            jetFlow.getSimWindow().update();
             jetFlow.getSolver().step();
-            System.out.println(System.nanoTime());
         }
     }
 }

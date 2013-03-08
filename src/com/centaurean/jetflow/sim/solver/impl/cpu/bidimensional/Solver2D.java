@@ -4,6 +4,7 @@ package com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional;
 import com.centaurean.jetflow.sim.environment.impl.bidimensional.obstacles.Obstacles2D;
 import com.centaurean.jetflow.sim.environment.obstacles.Obstacle;
 import com.centaurean.jetflow.sim.environment.obstacles.Obstacles;
+import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Coordinates2D;
 import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Vector2D;
 import com.centaurean.jetflow.sim.solver.Particle;
 import com.centaurean.jetflow.sim.solver.Particles;
@@ -82,7 +83,9 @@ public class Solver2D implements Solver {
             // todo manage bounce
 
             // Step 2 : smoothed kernel
-            particle2D.translate(new Vector2D(Math.random() - 0.5, Math.random() - 0.5));
+            if (((Coordinates2D) particle2D.coordinates()).x() < 799 && ((Coordinates2D) particle2D.coordinates()).y() < 799)
+                if (((Coordinates2D) particle2D.coordinates()).x() > 1.0 && ((Coordinates2D) particle2D.coordinates()).y() > 1.0)
+                    particle2D.translate(new Vector2D(Math.random() - 0.5, Math.random() - 0.5));
         }
     }
 }
