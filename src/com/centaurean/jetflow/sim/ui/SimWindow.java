@@ -42,11 +42,13 @@ import java.awt.image.WritableRaster;
  */
 public class SimWindow extends javax.swing.JPanel {
     private static final String FPS = "FPS = ";
+    private static final String SPS = "SPS = ";
 
     private static SimWindow instance = new SimWindow();
 
     private Image imageSource = null;
     private String fpsText = FPS + "0";
+    private String spsText = SPS + "0";
 
     public static SimWindow getInstance() {
         return instance;
@@ -71,9 +73,8 @@ public class SimWindow extends javax.swing.JPanel {
         }
 
         protected Void doInBackground() throws Exception {
-            int frames = 0;
+            long frames = 0;
             long timeStart = System.nanoTime();
-            double fps = 0.0;
             try {
                 while (true) {
                     BufferedImage bufferedImage = new BufferedImage(800, 800, BufferedImage.TYPE_INT_RGB);
@@ -93,9 +94,10 @@ public class SimWindow extends javax.swing.JPanel {
                         obstacle.draw(graphics2D);
 
                     graphics2D.setColor(Color.white);
-                    graphics2D.fillRect(5, 5, 75, 20);
+                    graphics2D.fillRect(5, 5, 75, 40);
                     graphics2D.setColor(Color.red);
                     graphics2D.drawString(fpsText, 10, 20);
+                    graphics2D.drawString(spsText, 10, 40);
 
                     graphics2D.dispose();
                     publish(bufferedImage);
@@ -103,6 +105,8 @@ public class SimWindow extends javax.swing.JPanel {
                     frames++;
                     if (frames % 100 == 0)
                         fpsText = FPS + Math.round((frames * 1000000000.0) / (System.nanoTime() - timeStart));
+                    if (JetFlow.getInstance().getSolver().time() % 100 == 0)
+                        spsText = SPS + Math.round((JetFlow.getInstance().getSolver().time() * 1000000000.0) / (System.nanoTime() - timeStart));
                 }
             } catch (Exception exception) {
                 exception.printStackTrace();

@@ -4,8 +4,6 @@ package com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional;
 import com.centaurean.jetflow.sim.environment.impl.bidimensional.obstacles.Obstacles2D;
 import com.centaurean.jetflow.sim.environment.obstacles.Obstacle;
 import com.centaurean.jetflow.sim.environment.obstacles.Obstacles;
-import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Coordinates2D;
-import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Vector2D;
 import com.centaurean.jetflow.sim.solver.Particle;
 import com.centaurean.jetflow.sim.solver.Particles;
 import com.centaurean.jetflow.sim.solver.Solver;
@@ -46,12 +44,14 @@ public class Solver2D implements Solver {
 
     private Obstacles2D obstacles2D;
     private Particles2D particles2D;
+    private long time;
 
     public static Solver2D getInstance() {
         return instance;
     }
 
     private Solver2D() {
+        time = 0;
     }
 
     @Override
@@ -76,16 +76,26 @@ public class Solver2D implements Solver {
 
     @Override
     public void step() {
-        for (Particle particle2D : particles2D) {
+        for (Particle particle : particles2D) {
+            Particle2D particle2D = (Particle2D) particle;
+
             // Step 1 : obstacles
-            for (Obstacle obstacle2D : obstacles2D)
-                if (obstacle2D.includes(particle2D.coordinates())) ;
+            for (Obstacle obstacle : obstacles2D)
+                if (obstacle.includes(particle.coordinates()))
+                    particle2D.invertTranslation();
             // todo manage bounce
 
             // Step 2 : smoothed kernel
-            if (((Coordinates2D) particle2D.coordinates()).x() < 799 && ((Coordinates2D) particle2D.coordinates()).y() < 799)
-                if (((Coordinates2D) particle2D.coordinates()).x() > 1.0 && ((Coordinates2D) particle2D.coordinates()).y() > 1.0)
-                    particle2D.translate(new Vector2D(Math.random() - 0.5, Math.random() - 0.5));
+            if (particle2D.coordinates().x() < 799 && particle2D.coordinates().y() < 799)
+                if (particle2D.coordinates().x() > 1.0 && particle2D.coordinates().y() > 1.0)
+                    particle.translate(particle2D.translation());
         }
+
+        time++;
+    }
+
+    @Override
+    public long time() {
+        return time;
     }
 }

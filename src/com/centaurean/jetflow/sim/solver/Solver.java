@@ -43,4 +43,6 @@ public interface Solver {
     public Particles getParticles();
 
     public void step();
+
+    public long time();
 }
