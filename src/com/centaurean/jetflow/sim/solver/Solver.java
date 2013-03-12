@@ -34,6 +34,8 @@ import com.centaurean.jetflow.sim.environment.obstacles.Obstacles;
  * @author gpnuma
  */
 public interface Solver {
+    public void initialize();
+
     public void setObstacles(Obstacles o);
 
     public void setParticles(Particles p);

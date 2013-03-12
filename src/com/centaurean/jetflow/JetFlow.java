@@ -5,6 +5,7 @@ import com.centaurean.jetflow.sim.environment.impl.bidimensional.obstacles.Obsta
 import com.centaurean.jetflow.sim.environment.impl.bidimensional.obstacles.Obstacles2D;
 import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Coordinates2D;
 import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Point2D;
+import com.centaurean.jetflow.sim.solver.Mass;
 import com.centaurean.jetflow.sim.solver.Solver;
 import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.Particle2D;
 import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.Particles2D;
@@ -46,6 +47,10 @@ import java.awt.*;
  * @author gpnuma
  */
 public class JetFlow {
+    public static final double SCALE = 0.0001;
+    public static final int PARTICLES = 2000;
+    public static final double TIME_STEP = 0.0001;
+
     private static JetFlow instance = new JetFlow();
 
     private Solver solver;
@@ -78,14 +83,17 @@ public class JetFlow {
         JetFlow jetFlow = getInstance();
         Solver2D solver = Solver2D.getInstance();
 
+        // (density of fluid * total volume) / (total number of particles)
+        Mass mass = new Mass(Particle2D.REST_DENSITY * 800.0 * SCALE * 800.0 * SCALE / PARTICLES);
+        System.out.println(mass);
         Particles2D particles = new Particles2D();
-        for (int i = 0; i < 100000; i++)
-            particles.add(new Particle2D(new Coordinates2D(Math.random() * 800.0, Math.random() * 800.0)));
+        for (int i = 0; i < PARTICLES; i++)
+            particles.add(new Particle2D(mass, new Coordinates2D((1.0 + Math.random() * 798.0) * SCALE, (1.0 + Math.random() * 798.0) * SCALE)));
 
         Obstacles2D obstacles = new Obstacles2D();
         Obstacle2D obstacle = new Obstacle2D();
         for (int i = 0; i < 10; i++)
-            obstacle.add(new ObstaclePart2D(new Point2D(Math.random() * 800.0, Math.random() * 800.0), new Point2D(Math.random() * 800.0, Math.random() * 800.0), new Point2D(Math.random() * 800.0, Math.random() * 800.0)));
+            obstacle.add(new ObstaclePart2D(new Point2D(Math.random() * 800.0 * SCALE, Math.random() * 800.0 * SCALE), new Point2D(Math.random() * 800.0 * SCALE, Math.random() * 800.0 * SCALE), new Point2D(Math.random() * 800.0 * SCALE, Math.random() * 800.0 * SCALE)));
         obstacles.add(obstacle);
 
         solver.setObstacles(obstacles);
@@ -103,8 +111,8 @@ public class JetFlow {
             }
         });
 
-        while (true) {
-            jetFlow.getSolver().step();
-        }
+        //solver.initialize();
+        while (true)
+            JetFlow.getInstance().getSolver().step();
     }
 }

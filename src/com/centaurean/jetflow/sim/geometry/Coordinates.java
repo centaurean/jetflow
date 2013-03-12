@@ -37,6 +37,8 @@ import com.centaurean.jetflow.sim.geometry.operations.Geometric;
 public interface Coordinates extends Algebraic<Coordinates>, Geometric {
     public double distance(Coordinates c);
 
+    public void invert();
+
     @Override
     public boolean equals(Object o);
 }

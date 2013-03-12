@@ -1,9 +1,8 @@
-package com.centaurean.jetflow.sim.solver;
+package com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.kernels;
 
-import com.centaurean.jetflow.sim.geometry.Coordinates;
-import com.centaurean.jetflow.sim.geometry.Point;
-import com.centaurean.jetflow.sim.ui.PixelDrawable;
-
+import com.centaurean.jetflow.sim.geometry.Vector;
+import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Vector2D;
+import com.centaurean.jetflow.sim.solver.impl.cpu.CPUKernel;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -33,27 +32,38 @@ import com.centaurean.jetflow.sim.ui.PixelDrawable;
  *
  * jetFlow
  *
- * 02/03/13 16:34
+ * 10/03/13 15:16
  * @author gpnuma
  */
-public interface Particle extends PixelDrawable, Point {
-    public Coordinates coordinates();
+public class CubicSplineKernel extends CPUKernel {
+    private static final double SIGMA = 10.0 / (7.0 * Math.PI);
 
-    public void updateCoordinates();
+    private double cD;
 
-    public Speed speed();
+    public CubicSplineKernel(double h) {
+        super(h);
+        cD = SIGMA / (h * h);
+    }
 
-    public void updateSpeed(SmoothingKernel smoothingKernel);
+    @Override
+    public double value(Vector variation) {
+        double r = variation.getLength();
+        double q = r / h;
+        if (q <= 1.0)
+            return cD * (1.0 - (3.0 / 2.0) * q * q + (3.0 / 4.0) * q * q * q);
+        if (q < 2.0)
+            return cD * (1.0 / 4.0) * (2.0 - q) * (2.0 - q) * (2.0 - q);
+        return 0.0;
+    }
 
-    public Density density();
-
-    public void updateDensity(SmoothingKernel smoothingKernel);
-
-    public Pressure pressure();
-
-    public void updatePressure();
-
-    public Mass mass();
-
-    public Viscosity viscosity();
+    @Override
+    public Vector valueDerivative(Vector variation) {
+        double r = variation.getLength();
+        double q = r / h;
+        if (q <= 1.0)
+            return variation.toUnit().multiply(cD * (1.0 / 4.0) * (-12.0 * q + 9.0 * q * q));
+        if (q < 2.0)
+            return variation.toUnit().multiply(cD * -(3.0 / 4.0) * (-2.0 + q) * (-2.0 + q));
+        return new Vector2D(0.0, 0.0);
+    }
 }

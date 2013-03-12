@@ -34,9 +34,11 @@ import com.centaurean.jetflow.sim.geometry.operations.Algebraic;
  * @author gpnuma
  */
 public interface Vector extends Algebraic<Vector> {
-    public Coordinates coordinates();
+    public Coordinates getCoordinates();
 
-    public double length();
+    public double getLength();
+
+    public Vector toUnit();
 
     public double dotProduct(Vector v);
 }

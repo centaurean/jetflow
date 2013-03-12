@@ -1,9 +1,8 @@
-package com.centaurean.jetflow.sim.solver;
+package com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.kernels;
 
-import com.centaurean.jetflow.sim.geometry.Coordinates;
-import com.centaurean.jetflow.sim.geometry.Point;
-import com.centaurean.jetflow.sim.ui.PixelDrawable;
-
+import com.centaurean.jetflow.sim.geometry.Vector;
+import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Vector2D;
+import com.centaurean.jetflow.sim.solver.impl.cpu.CPUKernel;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -33,27 +32,26 @@ import com.centaurean.jetflow.sim.ui.PixelDrawable;
  *
  * jetFlow
  *
- * 02/03/13 16:34
+ * 09/03/13 22:41
  * @author gpnuma
  */
-public interface Particle extends PixelDrawable, Point {
-    public Coordinates coordinates();
+public class SpikyKernel extends CPUKernel {
+    public SpikyKernel(double h) {
+        super(h);
+    }
 
-    public void updateCoordinates();
+    @Override
+    public double value(Vector variation) {
+        return 0.0;
+    }
 
-    public Speed speed();
-
-    public void updateSpeed(SmoothingKernel smoothingKernel);
-
-    public Density density();
-
-    public void updateDensity(SmoothingKernel smoothingKernel);
-
-    public Pressure pressure();
-
-    public void updatePressure();
-
-    public Mass mass();
-
-    public Viscosity viscosity();
+    @Override
+    public Vector valueDerivative(Vector variation) {
+        double r = variation.getLength();
+        double q = r / h;
+        if (q <= 1.0)
+            //return variation.multiply((-30.0 / (Math.PI * h * h * h * h)) * (1.0 - q) * (1.0 - q) / q);
+            return variation.multiply(10000.0 * (1.0 - q) * (1.0 - q));
+        return new Vector2D(0.0, 0.0);
+    }
 }

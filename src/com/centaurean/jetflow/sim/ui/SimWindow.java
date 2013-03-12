@@ -1,7 +1,6 @@
 package com.centaurean.jetflow.sim.ui;
 
 import com.centaurean.jetflow.JetFlow;
-import com.centaurean.jetflow.sim.environment.obstacles.Obstacle;
 import com.centaurean.jetflow.sim.solver.Particle;
 
 import javax.swing.*;
@@ -89,9 +88,9 @@ public class SimWindow extends javax.swing.JPanel {
                     for (Particle particle : JetFlow.getInstance().getSolver().getParticles())
                         particle.draw(raster);
 
-                    graphics2D.setColor(Color.darkGray);
-                    for (Obstacle obstacle : JetFlow.getInstance().getSolver().getObstacles())
-                        obstacle.draw(graphics2D);
+                    //graphics2D.setColor(Color.darkGray);
+                    //for (Obstacle obstacle : JetFlow.getInstance().getSolver().getObstacles())
+                    //    obstacle.draw(graphics2D);
 
                     graphics2D.setColor(Color.white);
                     graphics2D.fillRect(5, 5, 75, 40);

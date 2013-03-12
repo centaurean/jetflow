@@ -38,7 +38,11 @@ public class Pressure {
         this.pascals = pascals;
     }
 
-    public double pascals() {
+    public void setPascals(double pascals) {
+        this.pascals = pascals;
+    }
+
+    public double getPascals() {
         return pascals;
     }
 }

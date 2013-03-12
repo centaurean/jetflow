@@ -1,10 +1,5 @@
 package com.centaurean.jetflow.sim.solver;
 
-import com.centaurean.jetflow.sim.geometry.Coordinates;
-import com.centaurean.jetflow.sim.geometry.Point;
-import com.centaurean.jetflow.sim.ui.PixelDrawable;
-
-
 /*
  * Copyright (c) 2013, Centaurean software
  * All rights reserved.
@@ -33,27 +28,21 @@ import com.centaurean.jetflow.sim.ui.PixelDrawable;
  *
  * jetFlow
  *
- * 02/03/13 16:34
+ * 09/03/13 22:52
  * @author gpnuma
  */
-public interface Particle extends PixelDrawable, Point {
-    public Coordinates coordinates();
+public class Density {
+    private double value;
 
-    public void updateCoordinates();
+    public Density(double value) {
+        this.value = value;
+    }
 
-    public Speed speed();
+    public void setValue(double value) {
+        this.value = value;
+    }
 
-    public void updateSpeed(SmoothingKernel smoothingKernel);
-
-    public Density density();
-
-    public void updateDensity(SmoothingKernel smoothingKernel);
-
-    public Pressure pressure();
-
-    public void updatePressure();
-
-    public Mass mass();
-
-    public Viscosity viscosity();
+    public double getValue() {
+        return value;
+    }
 }

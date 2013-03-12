@@ -48,8 +48,8 @@ public class Point2D implements Point {
 
     @Override
     public void translate(Vector vector) {
-        coordinates2D.setX(coordinates().x() + ((Vector2D) vector).coordinates().x());
-        coordinates2D.setY(coordinates().y() + ((Vector2D) vector).coordinates().y());
+        coordinates2D.setX(coordinates().x() + ((Vector2D) vector).getCoordinates().x());
+        coordinates2D.setY(coordinates().y() + ((Vector2D) vector).getCoordinates().y());
     }
 
     @Override

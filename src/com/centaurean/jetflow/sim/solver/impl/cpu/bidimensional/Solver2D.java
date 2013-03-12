@@ -2,11 +2,15 @@ package com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional;
 
 
 import com.centaurean.jetflow.sim.environment.impl.bidimensional.obstacles.Obstacles2D;
-import com.centaurean.jetflow.sim.environment.obstacles.Obstacle;
 import com.centaurean.jetflow.sim.environment.obstacles.Obstacles;
 import com.centaurean.jetflow.sim.solver.Particle;
 import com.centaurean.jetflow.sim.solver.Particles;
+import com.centaurean.jetflow.sim.solver.SmoothingKernel;
 import com.centaurean.jetflow.sim.solver.Solver;
+import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.kernels.Poly6Kernel;
+import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.kernels.SpikyKernel;
+
+import static com.centaurean.jetflow.JetFlow.SCALE;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -44,6 +48,8 @@ public class Solver2D implements Solver {
 
     private Obstacles2D obstacles2D;
     private Particles2D particles2D;
+    private SmoothingKernel densityKernel = new Poly6Kernel(100.0 * SCALE);
+    private SmoothingKernel pressureKernel = new SpikyKernel(100.0 * SCALE);
     private long time;
 
     public static Solver2D getInstance() {
@@ -52,6 +58,14 @@ public class Solver2D implements Solver {
 
     private Solver2D() {
         time = 0;
+    }
+
+    @Override
+    public void initialize() {
+        for (Particle particle : particles2D) {
+            particle.updateDensity(densityKernel);
+            particle.updatePressure();
+        }
     }
 
     @Override
@@ -76,20 +90,16 @@ public class Solver2D implements Solver {
 
     @Override
     public void step() {
-        for (Particle particle : particles2D) {
-            Particle2D particle2D = (Particle2D) particle;
+        for (Particle particle : particles2D)
+            particle.updateDensity(densityKernel);
+        for (Particle particle : particles2D)
+            particle.updatePressure();
+        for (Particle particle : particles2D)
+            particle.updateSpeed(pressureKernel);
+        for (Particle particle : particles2D)
+            particle.updateCoordinates();
 
-            // Step 1 : obstacles
-            for (Obstacle obstacle : obstacles2D)
-                if (obstacle.includes(particle.coordinates()))
-                    particle2D.invertTranslation();
-            // todo manage bounce
-
-            // Step 2 : smoothed kernel
-            if (particle2D.coordinates().x() < 799 && particle2D.coordinates().y() < 799)
-                if (particle2D.coordinates().x() > 1.0 && particle2D.coordinates().y() > 1.0)
-                    particle.translate(particle2D.translation());
-        }
+        // todo manage bounce
 
         time++;
     }

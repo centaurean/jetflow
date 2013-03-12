@@ -69,6 +69,12 @@ public class Coordinates2D implements Coordinates {
     }
 
     @Override
+    public void invert() {
+        this.x = -x();
+        this.y = -y();
+    }
+
+    @Override
     public Coordinates2D add(Coordinates coordinates) {
         return new Coordinates2D(x() + ((Coordinates2D) coordinates).x(), y() + ((Coordinates2D) coordinates).y());
     }
@@ -92,7 +98,7 @@ public class Coordinates2D implements Coordinates {
 
     @Override
     public void translate(Vector vector) {
-        x += ((Coordinates2D) vector.coordinates()).x();
-        y += ((Coordinates2D) vector.coordinates()).y();
+        x += ((Coordinates2D) vector.getCoordinates()).x();
+        y += ((Coordinates2D) vector.getCoordinates()).y();
     }
 }

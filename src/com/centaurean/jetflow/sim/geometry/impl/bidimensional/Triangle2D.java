@@ -99,10 +99,10 @@ public class Triangle2D extends Triplet<Point2D> implements Triangle {
     }
 
     /**
-     * Determine if coordinates are included in the triangle
+     * Determine if getCoordinates are included in the triangle
      *
-     * @param coordinates a given set of 2D coordinates
-     * @return true if the triangle contains the given coordinates, false otherwise
+     * @param coordinates a given set of 2D getCoordinates
+     * @return true if the triangle contains the given getCoordinates, false otherwise
      */
     @Override
     public boolean includes(Coordinates coordinates) {
@@ -110,9 +110,9 @@ public class Triangle2D extends Triplet<Point2D> implements Triangle {
         Vector2D v1 = new Vector2D(b().coordinates().add(a().coordinates().multiply(-1.0)));
         Vector2D v2 = new Vector2D(c().coordinates().add(a().coordinates().multiply(-1.0)));
 
-        double multiplier = 1.0 / (v1.coordinates().y() * v2.coordinates().x() - v1.coordinates().x() * v2.coordinates().y());
-        double a = (v0.coordinates().y() * v2.coordinates().x() - v0.coordinates().x() * v2.coordinates().y() + v2.coordinates().y() * ((Coordinates2D) coordinates).x() - v2.coordinates().x() * ((Coordinates2D) coordinates).y()) * (-multiplier);
-        double b = (v0.coordinates().y() * v1.coordinates().x() - v0.coordinates().x() * v1.coordinates().y() + v1.coordinates().y() * ((Coordinates2D) coordinates).x() - v1.coordinates().x() * ((Coordinates2D) coordinates).y()) * multiplier;
+        double multiplier = 1.0 / (v1.getCoordinates().y() * v2.getCoordinates().x() - v1.getCoordinates().x() * v2.getCoordinates().y());
+        double a = (v0.getCoordinates().y() * v2.getCoordinates().x() - v0.getCoordinates().x() * v2.getCoordinates().y() + v2.getCoordinates().y() * ((Coordinates2D) coordinates).x() - v2.getCoordinates().x() * ((Coordinates2D) coordinates).y()) * (-multiplier);
+        double b = (v0.getCoordinates().y() * v1.getCoordinates().x() - v0.getCoordinates().x() * v1.getCoordinates().y() + v1.getCoordinates().y() * ((Coordinates2D) coordinates).x() - v1.getCoordinates().x() * ((Coordinates2D) coordinates).y()) * multiplier;
 
         return (a > 0.0) && (b > 0.0) && (a + b < 1.0);
     }

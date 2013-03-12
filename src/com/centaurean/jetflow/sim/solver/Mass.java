@@ -41,4 +41,8 @@ public class Mass {
     public double kilograms() {
         return kilograms;
     }
+
+    public String toString() {
+        return "Mass = " + kilograms() + "kg";
+    }
 }

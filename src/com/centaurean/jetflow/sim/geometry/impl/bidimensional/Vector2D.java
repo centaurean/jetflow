@@ -51,31 +51,38 @@ public class Vector2D implements Vector {
     }
 
     @Override
-    public Coordinates2D coordinates() {
-        return coordinates;
+    public double getLength() {
+        return sqrt(getCoordinates().x() * getCoordinates().x() + getCoordinates().y() * getCoordinates().y());
     }
 
-    public double length() {
-        return sqrt(coordinates().x() * coordinates().x() + coordinates().y() * coordinates().y());
+    @Override
+    public Vector toUnit() {
+        double length = getLength();
+        return new Vector2D(getCoordinates().x() / length, getCoordinates().y() / length);
+    }
+
+    @Override
+    public Coordinates2D getCoordinates() {
+        return coordinates;
     }
 
     @Override
     public Vector2D add(Vector vector) {
-        return new Vector2D(coordinates().x() + ((Coordinates2D) vector.coordinates()).x(), coordinates().y() + ((Coordinates2D) vector.coordinates()).y());
+        return new Vector2D(getCoordinates().x() + ((Coordinates2D) vector.getCoordinates()).x(), getCoordinates().y() + ((Coordinates2D) vector.getCoordinates()).y());
     }
 
     @Override
     public Vector2D multiply(double coefficient) {
-        return new Vector2D(coordinates().x() * coefficient, coordinates().y() * coefficient);
+        return new Vector2D(getCoordinates().x() * coefficient, getCoordinates().y() * coefficient);
     }
 
     @Override
     public double dotProduct(Vector vector) {
-        return coordinates().x() * ((Coordinates2D) vector.coordinates()).x() + coordinates().y() * ((Coordinates2D) vector.coordinates()).y();
+        return getCoordinates().x() * ((Coordinates2D) vector.getCoordinates()).x() + getCoordinates().y() * ((Coordinates2D) vector.getCoordinates()).y();
     }
 
     @Override
     public String toString() {
-        return "{" + coordinates().x() + ", " + coordinates().y() + "}";
+        return "{" + getCoordinates().x() + ", " + getCoordinates().y() + "}";
     }
 }
