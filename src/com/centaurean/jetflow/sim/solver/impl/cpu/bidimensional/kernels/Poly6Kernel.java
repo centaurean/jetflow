@@ -38,6 +38,7 @@ import com.centaurean.jetflow.sim.solver.impl.cpu.CPUKernel;
 public class Poly6Kernel extends CPUKernel {
     public Poly6Kernel(double h) {
         super(h);
+        System.out.println(h);
     }
 
     @Override

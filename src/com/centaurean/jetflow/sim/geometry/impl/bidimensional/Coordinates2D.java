@@ -45,6 +45,10 @@ public class Coordinates2D implements Coordinates {
         this.y = y;
     }
 
+    public Coordinates2D(Coordinates2D coordinates2D) {
+        this(coordinates2D.x(), coordinates2D.y());
+    }
+
     public void setX(double x) {
         this.x = x;
     }

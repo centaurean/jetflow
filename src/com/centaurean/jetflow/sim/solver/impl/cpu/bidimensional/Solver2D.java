@@ -1,6 +1,7 @@
 package com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional;
 
 
+import com.centaurean.jetflow.JetFlow;
 import com.centaurean.jetflow.sim.environment.impl.bidimensional.obstacles.Obstacles2D;
 import com.centaurean.jetflow.sim.environment.obstacles.Obstacles;
 import com.centaurean.jetflow.sim.solver.Particle;
@@ -9,8 +10,10 @@ import com.centaurean.jetflow.sim.solver.SmoothingKernel;
 import com.centaurean.jetflow.sim.solver.Solver;
 import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.kernels.Poly6Kernel;
 import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.kernels.SpikyKernel;
+import com.centaurean.jetflow.sim.ui.GLSimWindow;
 
 import static com.centaurean.jetflow.JetFlow.SCALE;
+import static java.lang.Math.sqrt;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -44,12 +47,18 @@ import static com.centaurean.jetflow.JetFlow.SCALE;
  * @author gpnuma
  */
 public class Solver2D implements Solver {
+    public static final double WIDTH = GLSimWindow.WIDTH * SCALE;
+    public static final double HEIGHT = GLSimWindow.HEIGHT * SCALE;
+
+    public static final double USEFUL_PARTICLES = 50.0;
+    public static final double R_USEFUL = sqrt((WIDTH * HEIGHT * USEFUL_PARTICLES) / (Math.PI * JetFlow.PARTICLES));
+
     private static Solver2D instance = new Solver2D();
 
     private Obstacles2D obstacles2D;
     private Particles2D particles2D;
-    private SmoothingKernel densityKernel = new Poly6Kernel(100.0 * SCALE);
-    private SmoothingKernel pressureKernel = new SpikyKernel(100.0 * SCALE);
+    private SmoothingKernel densityKernel = new Poly6Kernel(R_USEFUL);
+    private SmoothingKernel pressureKernel = new SpikyKernel(R_USEFUL);
     private long time;
 
     public static Solver2D getInstance() {

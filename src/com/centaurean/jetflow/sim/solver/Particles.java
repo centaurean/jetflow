@@ -1,7 +1,5 @@
 package com.centaurean.jetflow.sim.solver;
 
-import com.centaurean.jetflow.sim.ui.PixelDrawable;
-
 import java.util.Collection;
 
 /*
@@ -35,5 +33,5 @@ import java.util.Collection;
  * 06/03/13 17:52
  * @author gpnuma
  */
-public interface Particles extends Collection<Particle>, PixelDrawable {
+public interface Particles extends Collection<Particle> {
 }

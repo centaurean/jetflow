@@ -32,16 +32,28 @@ import com.centaurean.jetflow.sim.solver.impl.cpu.CPUKernel;
  *
  * jetFlow
  *
- * 09/03/13 22:41
+ * 12/03/13 17:10
  * @author gpnuma
  */
-public class SpikyKernel extends CPUKernel {
-    public SpikyKernel(double h) {
+public class MullerKernel extends CPUKernel {
+    private double H_2;
+    private double Cv;
+    private double Cd;
+
+    public MullerKernel(double h) {
         super(h);
+        H_2 = h * h;
+        double H_9 = h * h * h * h * h * h * h * h * h;
+        Cv = 315.0 / (64.0 * Math.PI * H_9);
+        Cd = -945.0 / (32.0 * Math.PI * H_9);
     }
 
     @Override
     public double value(Vector variation) {
+        double r = variation.getLength();
+        double q = r / h;
+        if (q <= 1.0)
+            return Cv * (H_2 - r * r) * (H_2 - r * r) * (H_2 - r * r);
         return 0.0;
     }
 
@@ -50,7 +62,7 @@ public class SpikyKernel extends CPUKernel {
         double r = variation.getLength();
         double q = r / h;
         if (q <= 1.0)
-            return variation.multiply((-30.0 / (Math.PI * h * h * h * h)) * (1.0 - q) * (1.0 - q) / q);
+            return variation.multiply(Cd * (H_2 - r * r) * (H_2 - r * r));
         return new Vector2D(0.0, 0.0);
     }
 }

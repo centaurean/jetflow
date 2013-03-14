@@ -10,10 +10,7 @@ import com.centaurean.jetflow.sim.solver.Solver;
 import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.Particle2D;
 import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.Particles2D;
 import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.Solver2D;
-import com.centaurean.jetflow.sim.ui.SimWindow;
-
-import javax.swing.*;
-import java.awt.*;
+import com.centaurean.jetflow.sim.ui.GLSimWindow;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -48,35 +45,17 @@ import java.awt.*;
  */
 public class JetFlow {
     public static final double SCALE = 0.0001;
-    public static final int PARTICLES = 2000;
-    public static final double TIME_STEP = 0.0001;
-
+    public static final int PARTICLES = 1000;
+    public static final double TIME_STEP = 0.01;
     private static JetFlow instance = new JetFlow();
-
     private Solver solver;
-    private SimWindow simWindow;
-
-    public static JetFlow getInstance() {
-        return instance;
-    }
+    private GLSimWindow simWindow;
 
     private JetFlow() {
     }
 
-    public void setSolver(Solver solver) {
-        this.solver = solver;
-    }
-
-    public void setSimWindow(SimWindow simWindow) {
-        this.simWindow = simWindow;
-    }
-
-    public Solver getSolver() {
-        return solver;
-    }
-
-    public SimWindow getSimWindow() {
-        return simWindow;
+    public static JetFlow getInstance() {
+        return instance;
     }
 
     public static void main(String... args) {
@@ -84,35 +63,51 @@ public class JetFlow {
         Solver2D solver = Solver2D.getInstance();
 
         // (density of fluid * total volume) / (total number of particles)
-        Mass mass = new Mass(Particle2D.REST_DENSITY * 800.0 * SCALE * 800.0 * SCALE / PARTICLES);
+        Mass mass = new Mass(Particle2D.REST_DENSITY * Solver2D.WIDTH * Solver2D.HEIGHT / PARTICLES);
         System.out.println(mass);
         Particles2D particles = new Particles2D();
         for (int i = 0; i < PARTICLES; i++)
-            particles.add(new Particle2D(mass, new Coordinates2D((1.0 + Math.random() * 798.0) * SCALE, (1.0 + Math.random() * 798.0) * SCALE)));
+            particles.add(new Particle2D(mass, new Coordinates2D(Math.random() * Solver2D.WIDTH, Math.random() * Solver2D.HEIGHT)));
 
         Obstacles2D obstacles = new Obstacles2D();
         Obstacle2D obstacle = new Obstacle2D();
         for (int i = 0; i < 10; i++)
-            obstacle.add(new ObstaclePart2D(new Point2D(Math.random() * 800.0 * SCALE, Math.random() * 800.0 * SCALE), new Point2D(Math.random() * 800.0 * SCALE, Math.random() * 800.0 * SCALE), new Point2D(Math.random() * 800.0 * SCALE, Math.random() * 800.0 * SCALE)));
+            obstacle.add(new ObstaclePart2D(new Point2D(Math.random() * Solver2D.WIDTH, Math.random() * Solver2D.HEIGHT), new Point2D(Math.random() * Solver2D.WIDTH, Math.random() * Solver2D.HEIGHT), new Point2D(Math.random() * Solver2D.WIDTH, Math.random() * Solver2D.HEIGHT)));
         obstacles.add(obstacle);
 
         solver.setObstacles(obstacles);
         solver.setParticles(particles);
         jetFlow.setSolver(solver);
-        jetFlow.setSimWindow(SimWindow.getInstance());
+        jetFlow.setSimWindow(GLSimWindow.getInstance());
 
-        SwingUtilities.invokeLater(new Runnable() {
+        /*SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 JFrame simWindowFrame = new JFrame();
-                simWindowFrame.getContentPane().add(SimWindow.getInstance(), BorderLayout.CENTER);
+                simWindowFrame.getContentPane().add(SwingSimWindow.getInstance(), BorderLayout.CENTER);
                 simWindowFrame.setSize(800, 800);
                 simWindowFrame.setVisible(true);
             }
-        });
+        });*/
 
         //solver.initialize();
         while (true)
             JetFlow.getInstance().getSolver().step();
+    }
+
+    public Solver getSolver() {
+        return solver;
+    }
+
+    public void setSolver(Solver solver) {
+        this.solver = solver;
+    }
+
+    public GLSimWindow getSimWindow() {
+        return simWindow;
+    }
+
+    public void setSimWindow(GLSimWindow simWindow) {
+        this.simWindow = simWindow;
     }
 }

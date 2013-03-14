@@ -1,8 +1,12 @@
-package com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.kernels;
+package com.centaurean.jetflow.sim.ui;
 
-import com.centaurean.jetflow.sim.geometry.Vector;
-import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Vector2D;
-import com.centaurean.jetflow.sim.solver.impl.cpu.CPUKernel;
+import com.jogamp.opengl.util.Animator;
+
+import javax.media.opengl.GLEventListener;
+import javax.media.opengl.awt.GLCanvas;
+import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -32,25 +36,40 @@ import com.centaurean.jetflow.sim.solver.impl.cpu.CPUKernel;
  *
  * jetFlow
  *
- * 09/03/13 22:41
+ * 14/03/13 02:22
  * @author gpnuma
  */
-public class SpikyKernel extends CPUKernel {
-    public SpikyKernel(double h) {
-        super(h);
+public class GLSimWindow extends JFrame {
+    public static final int WIDTH = 800;
+    public static final int HEIGHT = 800;
+
+    private static GLSimWindow instance = new GLSimWindow();
+
+    public static GLSimWindow getInstance() {
+        return instance;
     }
 
-    @Override
-    public double value(Vector variation) {
-        return 0.0;
-    }
+    private GLSimWindow() {
+        setTitle("jetFlow");
+        setSize(WIDTH, HEIGHT);
+        setLocationRelativeTo(null);
 
-    @Override
-    public Vector valueDerivative(Vector variation) {
-        double r = variation.getLength();
-        double q = r / h;
-        if (q <= 1.0)
-            return variation.multiply((-30.0 / (Math.PI * h * h * h * h)) * (1.0 - q) * (1.0 - q) / q);
-        return new Vector2D(0.0, 0.0);
+        GLCanvas glCanvas = new GLCanvas();
+        GLEventListener glEventListener = new GLSimWindowListener();
+        glCanvas.addGLEventListener(glEventListener);
+        add(glCanvas);
+
+        final Animator animator = new Animator(glCanvas);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                animator.stop();
+                System.exit(0);
+            }
+        });
+
+        animator.start();
+        setResizable(false);
+        setVisible(true);
     }
 }

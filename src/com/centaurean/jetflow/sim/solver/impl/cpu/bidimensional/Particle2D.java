@@ -1,17 +1,11 @@
 package com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional;
 
-import com.centaurean.jetflow.JetFlow;
 import com.centaurean.jetflow.sim.geometry.Vector;
 import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Coordinates2D;
 import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Vector2D;
 import com.centaurean.jetflow.sim.solver.*;
-import com.centaurean.jetflow.sim.ui.RGB;
 
-import java.awt.image.WritableRaster;
-
-import static com.centaurean.jetflow.JetFlow.SCALE;
-import static com.centaurean.jetflow.JetFlow.getInstance;
-import static java.lang.Math.floor;
+import static com.centaurean.jetflow.JetFlow.*;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -46,7 +40,8 @@ import static java.lang.Math.floor;
  */
 public class Particle2D implements Particle {
     public static final double REST_DENSITY = 1.0;
-    public static final double K = 330.0 * 330.0; // k = Cs^2
+    public static final double K = 330.0 * 330.0 * SCALE; // k = Cs^2
+    public static final double K_BOUNCE = 0.95;
 
     private Coordinates2D coordinates;
     private Speed2D speed;
@@ -70,15 +65,23 @@ public class Particle2D implements Particle {
 
     @Override
     public void updateCoordinates() {
-        translate(speed().multiply(JetFlow.TIME_STEP));
-        if (coordinates().x() > 798.0 * SCALE)
-            speed().getCoordinates().invert();
-        if (coordinates().y() > 798.0 * SCALE)
-            speed().getCoordinates().invert();
-        if (coordinates().x() < 2.0 * SCALE)
-            speed().getCoordinates().invert();
-        if (coordinates().y() < 2.0 * SCALE)
-            speed().getCoordinates().invert();
+        translate(speed().multiply(SCALE * TIME_STEP));
+        if (coordinates().x() < 0.0) {
+            coordinates().setX(-coordinates().x());
+            speed().getCoordinates().setX(-K_BOUNCE * speed().getCoordinates().x());
+        }
+        if (coordinates().x() > Solver2D.WIDTH) {
+            coordinates().setX(Solver2D.WIDTH - (coordinates().x() - Solver2D.WIDTH));
+            speed().getCoordinates().setX(-K_BOUNCE * speed().getCoordinates().x());
+        }
+        if (coordinates().y() < 0.0) {
+            coordinates().setY(-coordinates().y());
+            speed().getCoordinates().setY(-K_BOUNCE * speed().getCoordinates().y());
+        }
+        if (coordinates().y() > Solver2D.HEIGHT) {
+            coordinates().setY(Solver2D.HEIGHT - (coordinates().y() - Solver2D.HEIGHT));
+            speed().getCoordinates().setY(-K_BOUNCE * speed().getCoordinates().y());
+        }
     }
 
     @Override
@@ -88,15 +91,22 @@ public class Particle2D implements Particle {
 
     @Override
     public void updateSpeed(SmoothingKernel smoothingKernel) {
-        Vector2D acceleration = new Vector2D(0.0, 0.0);
-        for (Particle particle : getInstance().getSolver().getParticles())
+        // Gravity
+        speed().getCoordinates().translate(new Vector2D(0.0, -9.8).multiply(TIME_STEP));
+
+        for (Particle particle : getInstance().getSolver().getParticles()) {
             if (!particle.equals(this)) {
-                Vector2D vectorTo = new Vector2D(coordinates(), (Coordinates2D) particle.coordinates());
-                double Pij = -particle.mass().kilograms() * (pressure().getPascals() / (density().getValue() * density().getValue()) + particle.pressure().getPascals() / (particle.density().getValue() * particle.density().getValue()));
-                Vector delta = smoothingKernel.valueDerivative(vectorTo);
-                acceleration.getCoordinates().translate(delta.multiply(Pij));
+                // Pressure forces
+                Vector2D r = new Vector2D(coordinates(), (Coordinates2D) particle.coordinates());
+                double Pij = particle.mass().kilograms() * (pressure().getPascals() / (density().getValue() * density().getValue()) + particle.pressure().getPascals() / (particle.density().getValue() * particle.density().getValue()));
+                Vector delta = smoothingKernel.valueDerivative(r);
+                speed().getCoordinates().translate(delta.multiply(Pij * TIME_STEP));
+
+                // Surface tension
+
+                // Viscosity
             }
-        speed().getCoordinates().translate(acceleration.multiply(JetFlow.TIME_STEP));
+        }
     }
 
     @Override
@@ -107,15 +117,19 @@ public class Particle2D implements Particle {
     @Override
     public void updateDensity(SmoothingKernel smoothingKernel) {
         double newDensity = 0.0;
-        for (Particle particle : getInstance().getSolver().getParticles())
-            newDensity += mass().kilograms() * smoothingKernel.value(new Vector2D(coordinates(), (Coordinates2D) particle.coordinates()));
+        for (Particle particle : getInstance().getSolver().getParticles()) {
+            Vector2D r = new Vector2D(coordinates(), (Coordinates2D) particle.coordinates());
+            newDensity += particle.mass().kilograms() * smoothingKernel.value(r);
+        }
         density().setValue(newDensity);
     }
 
+    @Override
     public Mass mass() {
         return mass;
     }
 
+    @Override
     public Pressure pressure() {
         return pressure;
     }
@@ -132,23 +146,5 @@ public class Particle2D implements Particle {
     @Override
     public void translate(Vector vector) {
         coordinates().translate(vector);
-    }
-
-    /**
-     * Draws a particle as a pixel
-     *
-     * @param writableRaster a raster to draw a pixel to
-     */
-    @Override
-    public void draw(WritableRaster writableRaster) {
-        RGB rgb = RGB.map(0.75 * density().getValue(), 1024);
-        int x = (int) floor(coordinates().x() / SCALE);
-        int y = (int) floor(coordinates().y() / SCALE);
-        try {
-            writableRaster.setPixel(x, y, new int[]{0, 0, 255});//rgb.toIntArray(255));
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            System.out.println(coordinates().x() + ", " + coordinates().y());
-        }
     }
 }

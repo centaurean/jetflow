@@ -33,6 +33,7 @@ import java.awt.image.WritableRaster;
  * 08/03/13 13:58
  * @author gpnuma
  */
+@Deprecated
 public interface PixelDrawable {
     public void draw(WritableRaster writableRaster);
 }

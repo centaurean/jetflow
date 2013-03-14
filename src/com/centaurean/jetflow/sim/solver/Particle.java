@@ -2,7 +2,6 @@ package com.centaurean.jetflow.sim.solver;
 
 import com.centaurean.jetflow.sim.geometry.Coordinates;
 import com.centaurean.jetflow.sim.geometry.Point;
-import com.centaurean.jetflow.sim.ui.PixelDrawable;
 
 
 /*
@@ -36,7 +35,7 @@ import com.centaurean.jetflow.sim.ui.PixelDrawable;
  * 02/03/13 16:34
  * @author gpnuma
  */
-public interface Particle extends PixelDrawable, Point {
+public interface Particle extends Point {
     public Coordinates coordinates();
 
     public void updateCoordinates();

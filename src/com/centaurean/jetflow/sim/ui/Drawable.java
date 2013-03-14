@@ -33,6 +33,7 @@ import java.awt.*;
  * 06/03/13 16:58
  * @author gpnuma
  */
+@Deprecated
 public interface Drawable {
     public void draw(Graphics2D graphics2D);
 }
