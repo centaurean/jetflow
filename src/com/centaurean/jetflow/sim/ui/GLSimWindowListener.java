@@ -42,6 +42,7 @@ import javax.media.opengl.glu.gl2.GLUgl2;
  */
 public class GLSimWindowListener implements GLEventListener {
     private GLUgl2 glu = new GLUgl2();
+    private long frames = 0;
 
     @Override
     public void init(GLAutoDrawable glAutoDrawable) {
@@ -84,17 +85,22 @@ public class GLSimWindowListener implements GLEventListener {
         }
 
         gl.glEnd();
+        frames++;
     }
 
     @Override
     public void reshape(GLAutoDrawable glAutoDrawable, int x, int y, int width, int height) {
         GL2 gl = glAutoDrawable.getGL().getGL2();
-        gl.glViewport(x, y, width, height);
+        gl.glViewport(x, y, GLSimWindow.WIDTH, GLSimWindow.HEIGHT);
 
         gl.glMatrixMode(GL2.GL_PROJECTION);
         gl.glLoadIdentity();
-        glu.gluPerspective(2.3f, (float) width / height, 1.0f, 10.0f);
+        glu.gluPerspective(2.3f, 1.0f/*(float) width / height*/, 1.0f, 10.0f);
 
         gl.glMatrixMode(GL2.GL_MODELVIEW);
+    }
+
+    public long frames() {
+        return frames;
     }
 }

@@ -10,7 +10,7 @@ import com.centaurean.jetflow.sim.solver.Solver;
 import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.Particle2D;
 import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.Particles2D;
 import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.Solver2D;
-import com.centaurean.jetflow.sim.ui.GLSimWindow;
+import com.centaurean.jetflow.sim.ui.SimWindow;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -49,7 +49,7 @@ public class JetFlow {
     public static final double TIME_STEP = 0.01;
     private static JetFlow instance = new JetFlow();
     private Solver solver;
-    private GLSimWindow simWindow;
+    private SimWindow simWindow;
 
     private JetFlow() {
     }
@@ -78,7 +78,7 @@ public class JetFlow {
         solver.setObstacles(obstacles);
         solver.setParticles(particles);
         jetFlow.setSolver(solver);
-        jetFlow.setSimWindow(GLSimWindow.getInstance());
+        jetFlow.setSimWindow(SimWindow.getInstance());
 
         /*SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -103,11 +103,11 @@ public class JetFlow {
         this.solver = solver;
     }
 
-    public GLSimWindow getSimWindow() {
+    public SimWindow getSimWindow() {
         return simWindow;
     }
 
-    public void setSimWindow(GLSimWindow simWindow) {
+    public void setSimWindow(SimWindow simWindow) {
         this.simWindow = simWindow;
     }
 }

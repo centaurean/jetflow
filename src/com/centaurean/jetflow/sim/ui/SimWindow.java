@@ -1,9 +1,9 @@
 package com.centaurean.jetflow.sim.ui;
 
-import com.jogamp.opengl.util.Animator;
-
-import javax.media.opengl.awt.GLCanvas;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -33,51 +33,32 @@ import javax.swing.*;
  *
  * jetFlow
  *
- * 14/03/13 02:22
+ * 14/03/13 15:12
  * @author gpnuma
  */
-public class GLSimWindow extends JInternalFrame {
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 800;
+public class SimWindow extends JFrame {
+    private static SimWindow instance = new SimWindow();
 
-    private static GLSimWindow instance = new GLSimWindow();
-
-    private GLSimWindowListener glEventListener;
-
-    public static GLSimWindow getInstance() {
+    public static SimWindow getInstance() {
         return instance;
     }
 
-    private GLSimWindow() {
-        //setTitle("jetFlow");
-        setSize(WIDTH, HEIGHT);
-        setBorder(BorderFactory.createEmptyBorder());
-        //setEnabled(false);
-        //setLocationRelativeTo(null);
+    private SimWindow() {
+        setTitle("jetFlow");
+        setSize(GLSimWindow.WIDTH, GLSimWindow.HEIGHT + 50);
+        setLocationRelativeTo(null);
 
-        GLCanvas glCanvas = new GLCanvas();
-        /*GLEventListener */
-        glEventListener = new GLSimWindowListener();
-        glCanvas.addGLEventListener(glEventListener);
-        glCanvas.setVisible(true);
-        add(glCanvas);
-
-        final Animator animator = new Animator(glCanvas);
-        /*addWindowListener(new WindowAdapter() {
+        addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                animator.stop();
+                // Stop animator
                 System.exit(0);
             }
-        });*/
+        });
 
-        animator.start();
-        //this.getContentPane().add(new JLabel("Test"), BorderLayout.SOUTH);
-        //setResizable(false);
+        getContentPane().add(GLSimWindow.getInstance(), BorderLayout.CENTER);
+        getContentPane().add(InfoPanel.getInstance(), BorderLayout.SOUTH);
+        setResizable(false);
         setVisible(true);
-    }
-
-    public GLSimWindowListener getGlSimWindowListener() {
-        return glEventListener;
     }
 }

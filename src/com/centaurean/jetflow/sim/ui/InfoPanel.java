@@ -1,8 +1,7 @@
 package com.centaurean.jetflow.sim.ui;
 
-import com.jogamp.opengl.util.Animator;
+import com.centaurean.jetflow.JetFlow;
 
-import javax.media.opengl.awt.GLCanvas;
 import javax.swing.*;
 
 /*
@@ -33,51 +32,39 @@ import javax.swing.*;
  *
  * jetFlow
  *
- * 14/03/13 02:22
+ * 14/03/13 15:47
  * @author gpnuma
  */
-public class GLSimWindow extends JInternalFrame {
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 800;
+public class InfoPanel extends JLabel {
+    private static final String FPS = "FPS = ";
+    private static final String SPS = "SPS = ";
+    private static InfoPanel instance = new InfoPanel();
 
-    private static GLSimWindow instance = new GLSimWindow();
+    private String fpsText = FPS + "0";
+    private String spsText = SPS + "0";
 
-    private GLSimWindowListener glEventListener;
+    private InfoPanel() {
+        new Worker().execute();
+    }
 
-    public static GLSimWindow getInstance() {
+    public static InfoPanel getInstance() {
         return instance;
     }
 
-    private GLSimWindow() {
-        //setTitle("jetFlow");
-        setSize(WIDTH, HEIGHT);
-        setBorder(BorderFactory.createEmptyBorder());
-        //setEnabled(false);
-        //setLocationRelativeTo(null);
-
-        GLCanvas glCanvas = new GLCanvas();
-        /*GLEventListener */
-        glEventListener = new GLSimWindowListener();
-        glCanvas.addGLEventListener(glEventListener);
-        glCanvas.setVisible(true);
-        add(glCanvas);
-
-        final Animator animator = new Animator(glCanvas);
-        /*addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                animator.stop();
-                System.exit(0);
+    private class Worker extends SwingWorker {
+        protected Void doInBackground() throws Exception {
+            long timeStart = System.nanoTime();
+            try {
+                while (true) {
+                    fpsText = FPS + Math.round((GLSimWindow.getInstance().getGlSimWindowListener().frames() * 1000000000.0) / (System.nanoTime() - timeStart));
+                    spsText = SPS + Math.round((JetFlow.getInstance().getSolver().time() * 1000000000.0) / (System.nanoTime() - timeStart));
+                    setText(fpsText + ", " + spsText);
+                    Thread.sleep(500);
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                throw exception;
             }
-        });*/
-
-        animator.start();
-        //this.getContentPane().add(new JLabel("Test"), BorderLayout.SOUTH);
-        //setResizable(false);
-        setVisible(true);
-    }
-
-    public GLSimWindowListener getGlSimWindowListener() {
-        return glEventListener;
+        }
     }
 }
