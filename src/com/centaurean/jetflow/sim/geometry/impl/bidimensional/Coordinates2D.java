@@ -84,6 +84,11 @@ public class Coordinates2D implements Coordinates {
     }
 
     @Override
+    public Coordinates2D add(Vector vector) {
+        return new Coordinates2D(x() + ((Vector2D) vector).getCoordinates().x(), y() + ((Vector2D) vector).getCoordinates().y());
+    }
+
+    @Override
     public Coordinates2D multiply(double c) {
         return new Coordinates2D(c * x(), c * y());
     }
@@ -104,5 +109,9 @@ public class Coordinates2D implements Coordinates {
     public void translate(Vector vector) {
         x += ((Coordinates2D) vector.getCoordinates()).x();
         y += ((Coordinates2D) vector.getCoordinates()).y();
+    }
+
+    public Coordinates2D duplicate() {
+        return new Coordinates2D(x(), y());
     }
 }

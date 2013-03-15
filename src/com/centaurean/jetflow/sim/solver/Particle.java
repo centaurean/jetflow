@@ -46,8 +46,6 @@ public interface Particle extends Point {
 
     public Density density();
 
-    public void updateDensity(SmoothingKernel smoothingKernel);
-
     public Pressure pressure();
 
     public void updatePressure();

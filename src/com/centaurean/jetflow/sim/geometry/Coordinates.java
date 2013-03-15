@@ -1,5 +1,6 @@
 package com.centaurean.jetflow.sim.geometry;
 
+import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Coordinates2D;
 import com.centaurean.jetflow.sim.geometry.operations.Algebraic;
 import com.centaurean.jetflow.sim.geometry.operations.Geometric;
 
@@ -41,4 +42,6 @@ public interface Coordinates extends Algebraic<Coordinates>, Geometric {
 
     @Override
     public boolean equals(Object o);
+
+    Coordinates2D add(Vector vector);
 }

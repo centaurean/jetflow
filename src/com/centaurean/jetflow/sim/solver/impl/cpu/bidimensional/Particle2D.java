@@ -65,22 +65,32 @@ public class Particle2D implements Particle {
 
     @Override
     public void updateCoordinates() {
-        translate(speed().multiply(SCALE * TIME_STEP));
-        if (coordinates().x() < 0.0) {
-            coordinates().setX(-coordinates().x());
+        Coordinates2D current = coordinates();
+        Coordinates2D next = coordinates().add(speed().multiply(SCALE * TIME_STEP));
+
+        if (next.x() < 0.0) {
+            next.setX(-next.x());
             speed().getCoordinates().setX(-K_BOUNCE * speed().getCoordinates().x());
         }
-        if (coordinates().x() > Solver2D.WIDTH) {
-            coordinates().setX(Solver2D.WIDTH - (coordinates().x() - Solver2D.WIDTH));
+        if (next.x() > Solver2D.WIDTH) {
+            next.setX(Solver2D.WIDTH - (next.x() - Solver2D.WIDTH));
             speed().getCoordinates().setX(-K_BOUNCE * speed().getCoordinates().x());
         }
-        if (coordinates().y() < 0.0) {
-            coordinates().setY(-coordinates().y());
+        if (next.y() < 0.0) {
+            next.setY(-next.y());
             speed().getCoordinates().setY(-K_BOUNCE * speed().getCoordinates().y());
         }
-        if (coordinates().y() > Solver2D.HEIGHT) {
-            coordinates().setY(Solver2D.HEIGHT - (coordinates().y() - Solver2D.HEIGHT));
+        if (next.y() > Solver2D.HEIGHT) {
+            next.setY(Solver2D.HEIGHT - (next.y() - Solver2D.HEIGHT));
             speed().getCoordinates().setY(-K_BOUNCE * speed().getCoordinates().y());
+        }
+
+        if (getInstance().getSolver().getGrid().gridChange(current, next)) {
+            getInstance().getSolver().getGrid().remove(this);
+            coordinates = next;
+            getInstance().getSolver().getGrid().add(this);
+        } else {
+            coordinates = next;
         }
     }
 
@@ -115,16 +125,6 @@ public class Particle2D implements Particle {
     }
 
     @Override
-    public void updateDensity(SmoothingKernel smoothingKernel) {
-        double newDensity = 0.0;
-        for (Particle particle : getInstance().getSolver().getParticles()) {
-            Vector2D r = new Vector2D(coordinates(), (Coordinates2D) particle.coordinates());
-            newDensity += particle.mass().kilograms() * smoothingKernel.value(r);
-        }
-        density().setValue(newDensity);
-    }
-
-    @Override
     public Mass mass() {
         return mass;
     }
@@ -146,5 +146,22 @@ public class Particle2D implements Particle {
     @Override
     public void translate(Vector vector) {
         coordinates().translate(vector);
+    }
+
+    @Override
+    public int hashCode() {
+        return coordinates().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null)
+            return false;
+        if (object == this)
+            return true;
+        if (!(object instanceof Particle2D))
+            return false;
+        Particle2D particle = (Particle2D) object;
+        return (this.coordinates().equals(particle.coordinates()));
     }
 }

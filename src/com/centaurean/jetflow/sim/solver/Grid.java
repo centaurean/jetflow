@@ -1,6 +1,8 @@
 package com.centaurean.jetflow.sim.solver;
 
-import com.centaurean.jetflow.sim.environment.obstacles.Obstacles;
+import com.centaurean.jetflow.sim.geometry.Coordinates;
+
+import java.util.LinkedList;
 
 /*
  * Copyright (c) 2013, Centaurean software
@@ -30,21 +32,27 @@ import com.centaurean.jetflow.sim.environment.obstacles.Obstacles;
  *
  * jetFlow
  *
- * 06/03/13 15:12
+ * 15/03/13 02:35
  * @author gpnuma
  */
-public interface Solver {
-    public Obstacles getObstacles();
+public interface Grid {
+    public int translate(Coordinates coordinates);
 
-    public void setObstacles(Obstacles o);
+    public void add(Particle particle);
 
-    public Particles getParticles();
+    public void remove(Particle particle);
 
-    public void setParticles(Particles p);
+    public boolean gridChange(Coordinates previous, Coordinates current);
 
-    public Grid getGrid();
+    public LinkedList<Particle> nearParticles(int index);
 
-    public void step();
+    public int getWidth();
 
-    public long time();
+    public int getHeight();
+
+    LinkedList<Particle> inGridCell(int index);
+
+    void updatePressures(SmoothingKernel smoothingKernel);
+
+    void updateSpeeds(SmoothingKernel smoothingKernel);
 }

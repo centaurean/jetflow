@@ -7,6 +7,7 @@ import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Coordinates2D;
 import com.centaurean.jetflow.sim.geometry.impl.bidimensional.Point2D;
 import com.centaurean.jetflow.sim.solver.Mass;
 import com.centaurean.jetflow.sim.solver.Solver;
+import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.Grid2D;
 import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.Particle2D;
 import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.Particles2D;
 import com.centaurean.jetflow.sim.solver.impl.cpu.bidimensional.Solver2D;
@@ -45,7 +46,7 @@ import com.centaurean.jetflow.sim.ui.SimWindow;
  */
 public class JetFlow {
     public static final double SCALE = 0.0001;
-    public static final int PARTICLES = 1000;
+    public static final int PARTICLES = 10000;
     public static final double TIME_STEP = 0.01;
     private static JetFlow instance = new JetFlow();
     private Solver solver;
@@ -66,8 +67,12 @@ public class JetFlow {
         Mass mass = new Mass(Particle2D.REST_DENSITY * Solver2D.WIDTH * Solver2D.HEIGHT / PARTICLES);
         System.out.println(mass);
         Particles2D particles = new Particles2D();
-        for (int i = 0; i < PARTICLES; i++)
-            particles.add(new Particle2D(mass, new Coordinates2D(Math.random() * Solver2D.WIDTH, Math.random() * Solver2D.HEIGHT)));
+        Grid2D grid = new Grid2D();
+        for (int i = 0; i < PARTICLES; i++) {
+            Particle2D particle2D = new Particle2D(mass, new Coordinates2D(Math.random() * Solver2D.WIDTH, Math.random() * Solver2D.HEIGHT));
+            particles.add(particle2D);
+            grid.add(particle2D);
+        }
 
         Obstacles2D obstacles = new Obstacles2D();
         Obstacle2D obstacle = new Obstacle2D();
@@ -77,6 +82,7 @@ public class JetFlow {
 
         solver.setObstacles(obstacles);
         solver.setParticles(particles);
+        solver.setGrid(grid);
         jetFlow.setSolver(solver);
         jetFlow.setSimWindow(SimWindow.getInstance());
 

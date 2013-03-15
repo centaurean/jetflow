@@ -57,6 +57,7 @@ public class Solver2D implements Solver {
 
     private Obstacles2D obstacles2D;
     private Particles2D particles2D;
+    private Grid2D grid2D;
     private SmoothingKernel densityKernel = new Poly6Kernel(R_USEFUL);
     private SmoothingKernel pressureKernel = new SpikyKernel(R_USEFUL);
     private long time;
@@ -70,14 +71,6 @@ public class Solver2D implements Solver {
     }
 
     @Override
-    public void initialize() {
-        for (Particle particle : particles2D) {
-            particle.updateDensity(densityKernel);
-            particle.updatePressure();
-        }
-    }
-
-    @Override
     public void setObstacles(Obstacles obstacles2D) {
         this.obstacles2D = (Obstacles2D) obstacles2D;
     }
@@ -85,6 +78,10 @@ public class Solver2D implements Solver {
     @Override
     public void setParticles(Particles particles2D) {
         this.particles2D = (Particles2D) particles2D;
+    }
+
+    public void setGrid(Grid2D grid2D) {
+        this.grid2D = grid2D;
     }
 
     @Override
@@ -97,14 +94,14 @@ public class Solver2D implements Solver {
         return particles2D;
     }
 
+    public Grid2D getGrid() {
+        return grid2D;
+    }
+
     @Override
     public void step() {
-        for (Particle particle : particles2D)
-            particle.updateDensity(densityKernel);
-        for (Particle particle : particles2D)
-            particle.updatePressure();
-        for (Particle particle : particles2D)
-            particle.updateSpeed(pressureKernel);
+        grid2D.updatePressures(densityKernel);
+        grid2D.updateSpeeds(pressureKernel);
         for (Particle particle : particles2D)
             particle.updateCoordinates();
 
